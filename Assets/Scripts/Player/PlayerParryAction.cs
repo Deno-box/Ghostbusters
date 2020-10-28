@@ -93,7 +93,5 @@ public class PlayerParryAction : MonoBehaviour
         else
         if (parryJudgeTime <= fastJudgeTime)
             Debug.Log("Fast");
-
-        Debug.Log(parryJudgeTime);
     }
 }

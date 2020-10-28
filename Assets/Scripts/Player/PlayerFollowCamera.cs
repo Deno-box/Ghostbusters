@@ -7,34 +7,33 @@ public class PlayerFollowCamera : MonoBehaviour
     // 追跡するターゲット
     [SerializeField]
     private GameObject target = null;
-    // 追跡する速度
+    // 移動速度
     [SerializeField]
-    private float followSpeed = 0.0f;
+    private float moveSpeed = 0.0f;
+    // 回転速度
+    [SerializeField]
+    private float rotSpeed = 0.0f;
 
     // カメラとターゲットとのオフセット
     private Vector3 offset;
-    // 移動先の座標
-    private Vector3 moveNextPos;
+    private Vector3 offsetRot;
 
 
     // Start is called before the first frame update
     void Start()
     {
         offset = this.transform.position - target.transform.position;
-        moveNextPos = this.transform.position;
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        Vector3 vel = target.transform.position - moveNextPos;
-        vel *= followSpeed * Time.deltaTime;
         // オフセットでオフセットできてるのは座標のみで回転を考慮していないため意図しない挙動を起こす
-        moveNextPos += vel;
-        this.transform.position = moveNextPos;// + offset;
-        Vector3 rot = new Vector3(target.transform.eulerAngles.x, target.transform.eulerAngles.y, target.transform.eulerAngles.z);
-        this.transform.rotation = Quaternion.Euler(this.transform.eulerAngles.x, rot.y, rot.z);
-        //this.transform.RotateAround(target.transform.position, Vector3.up, 0.1f);// (rot);
-        //this.transform.rotation = target.transform.rotation;
+        this.transform.position = Vector3.Lerp(this.transform.position, target.transform.position + offset, moveSpeed * Time.deltaTime);
+        // 回転
+        var vectorToTarget = target.transform.position - this.transform.position;
+        var targetRotate = Quaternion.LookRotation(vectorToTarget);
+        var newRotate = Quaternion.Lerp(this.transform.rotation, targetRotate, rotSpeed * Time.deltaTime).eulerAngles;
+        this.transform.rotation = Quaternion.Euler(newRotate);
     }
 }

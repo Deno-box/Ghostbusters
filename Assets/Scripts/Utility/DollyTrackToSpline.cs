@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
 
+[ExecuteAlways]
+// オブジェクトに一つしか追加できないようにする
+[DisallowMultipleComponent]
+
 public class DollyTrackToSpline : MonoBehaviour
 {
     // 追跡用のパス
@@ -14,41 +18,42 @@ public class DollyTrackToSpline : MonoBehaviour
     // Waypointsの要素数
     private float waypointMax = 0.0f;
 
+    // テッセレーションの値(どれだけ細かく刻むか)
+    [SerializeField]
+    private int tessellation = 0;
+
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
-        //this.path   = this.GetComponent<CinemachineSmoothPath>();   
+        // 自身のスプラインを取得
         this.spline = this.GetComponent<SplineMesh.Spline>();
 
         // waypointsの要素数を取得
-        waypointMax = this.path.m_Waypoints.Length;
-
-        this.spline.nodes.Clear();
-
-        for (int i = 0; i < waypointMax; i++)
-        {
-            Vector3 offset = path.gameObject.transform.position;
-
-            CinemachineSmoothPath.Waypoint waypoint = this.path.m_Waypoints[i];
-            Vector3 pos = waypoint.position;
-
-            int nextIndex = i+1;
-            if (i == waypointMax-1)
-                nextIndex = i;
-                
-
-            Vector3 nextPos = this.path.m_Waypoints[nextIndex].position;
-            Vector3 direction = nextPos - pos;
-
-            SplineMesh.SplineNode node = new SplineMesh.SplineNode(pos + offset, direction);
-            this.spline.nodes.Add(node);
-        }
+        this.waypointMax = this.path.m_Waypoints.Length;
+        // SplineNodeの座標を設定
+        CreateSplineWayPoint();
 
     }
 
-    // Update is called once per frame
-    void Update()
+    // スプラインにWayPointを追加
+    void CreateSplineWayPoint()
     {
-        
+        // ノードを初期化
+        this.spline.nodes.Clear();
+        // テッセレーションを設定
+        this.tessellation = Mathf.Max(this.tessellation, 1);
+        // pathの座標を計算するときに使用する
+        float step = 1.0f / this.tessellation;
+        // 追加するノードの最大値を計算
+        int positionCount = ((int)(this.path.MaxPos - this.path.MinPos) * this.tessellation) + 1;
+        // WayPointを生成
+        for (var i = 0; i < positionCount; i++)
+        {
+            // 追加する座標を取得
+            Vector3 pos = this.path.EvaluatePosition(i * step);
+            // ノードを作成、追加
+            SplineMesh.SplineNode node = new SplineMesh.SplineNode(pos, Vector3.up);
+            this.spline.nodes.Add(node);
+        }
     }
 }

@@ -7,10 +7,12 @@ using Cinemachine;
 [ExecuteAlways]
 // オブジェクトに一つしか追加できないようにする
 [DisallowMultipleComponent]
+// TODO :: 自動で設定できるようにしておく
 // SplineとSplineMeshTiling,SplineSmootherを必ず追加する
 [RequireComponent(typeof(SplineMesh.Spline))]
-[RequireComponent(typeof(SplineMesh.SplineMeshTiling))]
+//[RequireComponent(typeof(SplineMesh.SplineMeshTiling))]
 [RequireComponent(typeof(SplineMesh.SplineSmoother))]
+[RequireComponent(typeof(SplineMesh.SplineExtrusion))]
 
 
 public class DollyTrackToSpline : MonoBehaviour
@@ -38,7 +40,6 @@ public class DollyTrackToSpline : MonoBehaviour
         this.waypointMax = this.path.m_Waypoints.Length;
         // SplineNodeの座標を設定
         CreateSplineWayPoint();
-
     }
 
     // スプラインにWayPointを追加

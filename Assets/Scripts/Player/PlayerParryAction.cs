@@ -44,7 +44,6 @@ public class PlayerParryAction : MonoBehaviour
         // パリィを行っていたら判定用タイマーを増加
         if (isParryActive)
             parryJudgeTime += Time.deltaTime;
-
     }
 
     // マウスクリックでパリィを行う

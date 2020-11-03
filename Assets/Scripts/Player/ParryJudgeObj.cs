@@ -12,6 +12,7 @@ public class ParryJudgeObj : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         // プレイヤーに衝突の報告を行う
-        player.ParryJudgeCollision();
+        if (other.tag == "Enemy")
+            player.ParryJudgeCollision();
     }
 }

@@ -3,9 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
 
+// 常に実行を行う
 [ExecuteAlways]
 // オブジェクトに一つしか追加できないようにする
 [DisallowMultipleComponent]
+// SplineとSplineMeshTiling,SplineSmootherを必ず追加する
+[RequireComponent(typeof(SplineMesh.Spline))]
+[RequireComponent(typeof(SplineMesh.SplineMeshTiling))]
+[RequireComponent(typeof(SplineMesh.SplineSmoother))]
+
 
 public class DollyTrackToSpline : MonoBehaviour
 {
@@ -20,7 +26,7 @@ public class DollyTrackToSpline : MonoBehaviour
 
     // テッセレーションの値(どれだけ細かく刻むか)
     [SerializeField]
-    private int tessellation = 0;
+    private int tessellation = 6;
 
     // Start is called before the first frame update
     void Awake()

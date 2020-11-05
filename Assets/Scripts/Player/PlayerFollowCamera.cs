@@ -30,6 +30,7 @@ public class PlayerFollowCamera : MonoBehaviour
     {
         // オフセットでオフセットできてるのは座標のみで回転を考慮していないため意図しない挙動を起こす
         this.transform.position = Vector3.Lerp(this.transform.position, target.transform.position + offset, moveSpeed * Time.deltaTime);
+       
         // 回転
         var vectorToTarget = target.transform.position - this.transform.position;
         var targetRotate = Quaternion.LookRotation(vectorToTarget);

@@ -43,6 +43,7 @@ public class PlayerMove : MonoBehaviour
     }
 
     // 移動するパスを変更
+
     public void ChangeMovePath(CinemachineSmoothPath path,float position = 0.0f)
     //public void ChangeMovePath(CinemachinePath path,float position = 0.0f)
     {

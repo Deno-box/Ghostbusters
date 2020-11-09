@@ -47,7 +47,7 @@ public class PlayerMove : MonoBehaviour
     //public void ChangeMovePath(CinemachinePath path,float position = 0.0f)
     {
         myCaart.m_Path = path;
-        myCaart.m_Position = position;
+        //myCaart.m_Position = position;
     }
 
     // 0.1秒後に移動用オブジェクトを非アクティブにするコルーチン

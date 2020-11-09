@@ -38,7 +38,7 @@ public class PlayerMoveJudge : MonoBehaviour
             // 移動先のPositionを計算
             //pos = num * (path.PathLength / spline.nodes.Count);
             pos = path.FindClosestPoint(other.transform.position,0,-1,10);
-            Debug.Log(num + " : " + this.transform.parent.GetComponent<Cinemachine.CinemachineDollyCart>().m_Position + " : " + pos);
+            //Debug.Log(num + " : " + this.transform.parent.GetComponent<Cinemachine.CinemachineDollyCart>().m_Position + " : " + pos);
             //Debug.Log(path.PathLength / (spline.nodes.Count*2));
             // トータルのPositionからWaypointで分割し1セグメント当たりの長さを算出
             // それを元に計算して移動先のPositionを計算

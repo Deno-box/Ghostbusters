@@ -62,7 +62,7 @@ public class DollyTrackToSpline : MonoBehaviour
         // pathの座標を計算するときに使用する
         float step = 1.0f / this.tessellation;
         // 追加するノードの最大値を計算
-        int positionCount = ((int)(this.path.MaxPos - this.path.MinPos) * this.tessellation);
+        int positionCount = ((int)(this.path.MaxPos - this.path.MinPos) * this.tessellation)+1;
         //float step = this.path.MaxPos / positionCount;
         //int positionCount = (int)this.path.PathLength / 5;
         // ノードを生成

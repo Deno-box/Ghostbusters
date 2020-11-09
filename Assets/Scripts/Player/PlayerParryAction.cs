@@ -64,17 +64,24 @@ public class PlayerParryAction : MonoBehaviour
         isParryActive = true;
 
         
-        // parryActimeTimeの間パリィを発生させる
+        // parryActimeTimeの間処理を停止する
         yield return new WaitForSeconds(parryActiveTime);
-        // 一定時間経過後パリィ判定用オブジェクトを非アクティブにする
-        parryObj.SetActive(false);
-        // パリィアクティブ状態を解除
-        isParryActive = false;
+
+        // 生成してから一定時間経過していたら非アクティブにする
+        if (parryActiveTime <= parryJudgeTime)
+        {
+            // 一定時間経過後パリィ判定用オブジェクトを非アクティブにする
+            parryObj.SetActive(false);
+            // パリィアクティブ状態を解除
+            isParryActive = false;
+        }
     }
 
     // パリィ判定用オブジェクトに衝突したら
     public void ParryJudgeCollision()
     {
+        // パリィ判定用オブジェクトを非アクティブにする
+        parryObj.SetActive(false);
         // パリィアクティブ状態を解除
         isParryActive = false;
 

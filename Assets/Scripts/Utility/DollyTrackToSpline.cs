@@ -19,7 +19,17 @@ public class DollyTrackToSpline : MonoBehaviour
 {
     // 追跡用のパス
     [SerializeField]
+    //private CinemachinePath path = null;
     private CinemachineSmoothPath path = null;
+    public CinemachineSmoothPath Path
+    {
+        get { return this.path; }
+    }
+    //public CinemachinePath Path
+    //{
+    //    get { return this.path; }
+    //}
+
     // スプライン
     private SplineMesh.Spline spline = null;
 
@@ -52,8 +62,10 @@ public class DollyTrackToSpline : MonoBehaviour
         // pathの座標を計算するときに使用する
         float step = 1.0f / this.tessellation;
         // 追加するノードの最大値を計算
-        int positionCount = ((int)(this.path.MaxPos - this.path.MinPos) * this.tessellation) + 1;
-        // WayPointを生成
+        int positionCount = ((int)(this.path.MaxPos - this.path.MinPos) * this.tessellation)+1;
+        //float step = this.path.MaxPos / positionCount;
+        //int positionCount = (int)this.path.PathLength / 5;
+        // ノードを生成
         for (var i = 0; i < positionCount; i++)
         {
             // 追加する座標を取得
@@ -61,6 +73,11 @@ public class DollyTrackToSpline : MonoBehaviour
             // ノードを作成、追加
             SplineMesh.SplineNode node = new SplineMesh.SplineNode(pos, Vector3.up);
             this.spline.nodes.Add(node);
+
+            //Debug.Log(i*step + " / " + pos);
+            //Debug.Log(i*step + " / " + pos);
         }
+        // this.path.EvaluatePositionはWaypointsの最大値(maxPos)が終点になっている
+        //Debug.Log(this.path.PathLength + " / " + this.path.EvaluatePosition(6.0f) + " / " + this.path.EvaluatePosition(this.path.PathLength));
     }
 }

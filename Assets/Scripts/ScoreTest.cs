@@ -4,19 +4,9 @@ using UnityEngine;
 
 public class ScoreTest : MonoBehaviour
 {
-    // Managerゲームオブジェクト
-    [SerializeField]
-    GameObject manager;
-
-    // Managerスクリプト格納用
-    GameDataManager gameDataManager; 
-
-
     // Start is called before the first frame update
     void Start()
     {
-        // Managerスクリプト取得
-        gameDataManager = manager.GetComponent<GameDataManager>();
     }
 
     // Update is called once per frame
@@ -25,7 +15,7 @@ public class ScoreTest : MonoBehaviour
         // Xキー押下
         if (Input.GetKeyDown(KeyCode.X))
         {
-
+            GameDataManager.KilledEnemyNum++;
         }
         // Yキー押下
         if (Input.GetKeyDown(KeyCode.Y))

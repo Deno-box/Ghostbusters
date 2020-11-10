@@ -1,9 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameDataManager : MonoBehaviour
 {
+    // スコア用UI
+    [SerializeField]
+    Text scoreText = null;
+    private Score scoreScript;
+
     // トータルスコア
     private static int totalScore = 0;
     public static int TotalScore
@@ -14,30 +20,33 @@ public class GameDataManager : MonoBehaviour
 
     // 良判定スコア
     [SerializeField]
-    int greatScore;
-    public int GreateScore
+    int great = 0;
+    private static int greatScore = 0;
+    public static int GreatScore
     {
         get { return greatScore; }
     }
 
     // 可判定スコア
     [SerializeField]
-    int goodScore;
-    public int GoodScore
+    int good = 0;
+    private static int goodScore = 0;
+    public static int GoodScore
     {
         get { return goodScore; }
     }
 
     // ミス判定スコア
     [SerializeField]
-    int missScore;
-    public int MissScore
+    int miss = 0;
+    private static int missScore = 0;
+    public static int MissScore
     {
         get { return missScore; }
     }
 
     // 敵の総撃破数
-    private static int killedEnemyNum;
+    private static int killedEnemyNum = 0;
     public static int KilledEnemyNum
     {
         get { return killedEnemyNum; }
@@ -45,7 +54,7 @@ public class GameDataManager : MonoBehaviour
     }
 
     // 良判定の数
-    private static int greatDecisionNum;
+    private static int greatDecisionNum = 0;
     public static int GreatDecisionNum
     {
         get { return greatDecisionNum; }
@@ -53,7 +62,7 @@ public class GameDataManager : MonoBehaviour
     }
 
     // 可判定の数
-    private static int goodDecisionNum;
+    private static int goodDecisionNum = 0;
     public static int GoodDecisionNum
     {
         get { return goodDecisionNum; }
@@ -61,23 +70,29 @@ public class GameDataManager : MonoBehaviour
     }
 
     // ミス判定の数
-    private static int missDecisionNum;
+    private static int missDecisionNum = 0;
     public static int MissDecisionNum
     {
         get { return missDecisionNum; }
         set { missDecisionNum = value; }
     }
 
+    void Awake()
+    {
+        greatScore = this.great;
+        goodScore = this.good;
+        missScore = this.miss;
+    }
 
     // Start is called before the first frame update
     void Start()
     {
-
+        this.scoreScript = this.scoreText.GetComponent<Score>();
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        //this.scoreScript.AddScore();
     }
 }

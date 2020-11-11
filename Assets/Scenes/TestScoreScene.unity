@@ -151,9 +151,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scoreText: {fileID: 1360300858}
-  score: e8030000f401000038ffffff
-  good: 500
-  miss: -200
+  scorePoint: e8030000f401000038ffffff
 --- !u!4 &87692605
 Transform:
   m_ObjectHideFlags: 0

@@ -46,9 +46,9 @@ public class Uiscript : MonoBehaviour
     void Update()
     {
      //GameDataMnagerからデータを持ってくる
-     great = GameDataManager.GreatDecisionNum;
-     good = GameDataManager.GoodDecisionNum;
-     miss = GameDataManager.MissDecisionNum;
+     //great = GameDataManager.GreatDecisionNum;
+     //good = GameDataManager.GoodDecisionNum;
+     //miss = GameDataManager.MissDecisionNum;
 
      //それぞれの数値を取得する
      //greatScore = GameDataManager.GreatScore;

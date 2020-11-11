@@ -12,7 +12,7 @@ public class GameDataManager : MonoBehaviour
         GOOD = 1,   // 可
         MISS = 2,   // 不可
 
-        ALL_TYPE,
+        ALL_TYPE = 3,
     }
 
     // スコア用UI
@@ -33,10 +33,11 @@ public class GameDataManager : MonoBehaviour
 
     void Awake()
     {
-        // スコア値の初期化
+        // スコア値,判定の数初期化
         for (int i = 0; i < (int)SCORE_TYPE.ALL_TYPE; i++)
         {
             score[i] = this.scorePoint[i];
+            decisionNum[i] = 0;
         }
     }
 
@@ -50,7 +51,8 @@ public class GameDataManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        // スコアを計算
+        this.scoreScript.CalcScore(score, decisionNum);
     }
 
     // スコア値の取得
@@ -60,4 +62,14 @@ public class GameDataManager : MonoBehaviour
     }
     
     // 判定数の取得
+    static int GetDecisionNum(int _scoreType)
+    {
+        return decisionNum[_scoreType];
+    }
+
+    // 判定数の追加
+    public static void AddDecisionNum(int _scoreType)
+    {
+        decisionNum[_scoreType]++;
+    }
 }

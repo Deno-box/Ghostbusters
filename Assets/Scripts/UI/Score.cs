@@ -21,12 +21,13 @@ public class Score : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // テキスト更新(7桁で表示)
         this.scoreText.text = this.score.ToString("D7");
     }
 
     // スコアを追加する
-    public void AddScore(int _value)
+    public void AddScore(int[] _score,int _greatNum, int _goodNum, int _missNum)
     {
-        this.score += _value;
+      
     }
 }

@@ -51,9 +51,9 @@ public class Uiscript : MonoBehaviour
      miss = GameDataManager.MissDecisionNum;
 
      //それぞれの数値を取得する
-     greatScore = GameDataManager.GreatScore;
-     goodScore = GameDataManager. GoodScore;
-     missScore = GameDataManager. MissScore;
+     //greatScore = GameDataManager.GreatScore;
+     //goodScore = GameDataManager. GoodScore;
+     //missScore = GameDataManager. MissScore;
 
    　//トータルスコアの計算
     totalScore = (great * greatScore) + (good * goodScore) + (miss * missScore);

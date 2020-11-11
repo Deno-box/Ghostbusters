@@ -41,8 +41,6 @@ public class Score : MonoBehaviour
             {
                 total = 0;
             }
-
-            Debug.Log(total);
         }
 
         // テキストの変動

@@ -56,13 +56,13 @@ public class GameDataManager : MonoBehaviour
     }
 
     // スコア値の取得
-    static int GetScore(int _scoreType)
+    public static int GetScore(int _scoreType)
     {
         return score[_scoreType];
     }
     
     // 判定数の取得
-    static int GetDecisionNum(int _scoreType)
+    public static int GetDecisionNum(int _scoreType)
     {
         return decisionNum[_scoreType];
     }

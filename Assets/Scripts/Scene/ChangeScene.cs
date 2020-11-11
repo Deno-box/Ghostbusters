@@ -22,4 +22,10 @@ public class ChangeScene : MonoBehaviour
     {
         SceneManager.LoadScene(1);
     }
+
+    // タイトルへ戻るボタン押下
+    public void OnBuckTitleButtonClick()
+    {
+        SceneManager.LoadScene(0);
+    }
 }

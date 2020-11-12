@@ -5,94 +5,71 @@ using UnityEngine.UI;
 
 public class GameDataManager : MonoBehaviour
 {
+    // スコア用
+    public enum SCORE_TYPE
+    {
+        GREAT = 0,  // 良
+        GOOD = 1,   // 可
+        MISS = 2,   // 不可
+
+        ALL_TYPE = 3,
+    }
+
     // スコア用UI
     [SerializeField]
     Text scoreText = null;
     private Score scoreScript;
 
-    // トータルスコア
-    private static int totalScore = 0;
-    public static int TotalScore
-    {
-        get { return totalScore; }
-        set { totalScore = value; }
-    }
-
-    // 良判定スコア
+    // スコア値格納用
+    [NamedArrayAttribute(new string[] { "Great Score", "Good Score", "Miss Score" })]
     [SerializeField]
-    int great = 0;
-    private static int greatScore = 0;
-    public static int GreatScore
-    {
-        get { return greatScore; }
-    }
+    int[] scorePoint = new int[(int)SCORE_TYPE.ALL_TYPE];
 
-    // 可判定スコア
-    [SerializeField]
-    int good = 0;
-    private static int goodScore = 0;
-    public static int GoodScore
-    {
-        get { return goodScore; }
-    }
+    // スコア値保存用
+    private static int[] score = new int[(int)SCORE_TYPE.ALL_TYPE];
 
-    // ミス判定スコア
-    [SerializeField]
-    int miss = 0;
-    private static int missScore = 0;
-    public static int MissScore
-    {
-        get { return missScore; }
-    }
-
-    // 敵の総撃破数
-    private static int killedEnemyNum = 0;
-    public static int KilledEnemyNum
-    {
-        get { return killedEnemyNum; }
-        set { killedEnemyNum = value; }
-    }
-
-    // 良判定の数
-    private static int greatDecisionNum = 0;
-    public static int GreatDecisionNum
-    {
-        get { return greatDecisionNum; }
-        set { greatDecisionNum = value; }
-    }
-
-    // 可判定の数
-    private static int goodDecisionNum = 0;
-    public static int GoodDecisionNum
-    {
-        get { return goodDecisionNum; }
-        set { goodDecisionNum = value; }
-    }
-
-    // ミス判定の数
-    private static int missDecisionNum = 0;
-    public static int MissDecisionNum
-    {
-        get { return missDecisionNum; }
-        set { missDecisionNum = value; }
-    }
+    // 判定の数
+    private static int[] decisionNum = new int[(int)SCORE_TYPE.ALL_TYPE];
 
     void Awake()
     {
-        greatScore = this.great;
-        goodScore = this.good;
-        missScore = this.miss;
+        // スコア値,判定の数初期化
+        for (int i = 0; i < (int)SCORE_TYPE.ALL_TYPE; i++)
+        {
+            score[i] = this.scorePoint[i];
+            decisionNum[i] = 0;
+        }
     }
 
     // Start is called before the first frame update
     void Start()
     {
+        // スコアスクリプトの取得
         this.scoreScript = this.scoreText.GetComponent<Score>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        //this.scoreScript.AddScore();
+        // スコアを計算
+        this.scoreScript.CalcScore(score, decisionNum);
+    }
+
+    // スコア値の取得
+    public static int GetScore(int _scoreType)
+    {
+        return score[_scoreType];
+    }
+    
+    // 判定数の取得
+    public static int GetDecisionNum(int _scoreType)
+    {
+        return decisionNum[_scoreType];
+    }
+
+    // 判定数の追加
+    public static void AddDecisionNum(int _scoreType)
+    {
+        decisionNum[_scoreType]++;
     }
 }

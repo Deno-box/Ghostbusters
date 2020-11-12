@@ -15,17 +15,17 @@ public class ScoreTest : MonoBehaviour
         // Xキー押下
         if (Input.GetKeyDown(KeyCode.X))
         {
-            GameDataManager.KilledEnemyNum++;
+            GameDataManager.AddDecisionNum((int)GameDataManager.SCORE_TYPE.GREAT);
         }
-        // Yキー押下
-        if (Input.GetKeyDown(KeyCode.Y))
+        // Cキー押下
+        if (Input.GetKeyDown(KeyCode.C))
         {
-
+            GameDataManager.AddDecisionNum((int)GameDataManager.SCORE_TYPE.GOOD);
         }
         // Zキー押下
         if (Input.GetKeyDown(KeyCode.Z))
         {
-
+            GameDataManager.AddDecisionNum((int)GameDataManager.SCORE_TYPE.MISS);
         }
 
     }

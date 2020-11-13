@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 723424290551224312}
   - component: {fileID: 3546563422586585776}
   - component: {fileID: 4990805540430293357}
+  - component: {fileID: 4295436319217822966}
   m_Layer: 0
   m_Name: MoveJudge_L
   m_TagString: Untagged
@@ -50,7 +51,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1011145097979041878}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -58,7 +59,6 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
-  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -83,7 +83,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!65 &723424290551224312
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -125,6 +124,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d92346b5b0b48b46a662ac905bb64ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &4295436319217822966
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1011145097979041878}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25f7bb0ce4352bc449e378fa29bc75e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2901818248983639472
 GameObject:
   m_ObjectHideFlags: 0
@@ -139,6 +150,7 @@ GameObject:
   - component: {fileID: 2010917401319401557}
   - component: {fileID: 6279472161390431073}
   - component: {fileID: 550915842142978400}
+  - component: {fileID: 4890035168193110153}
   m_Layer: 0
   m_Name: MoveJudge_R
   m_TagString: Untagged
@@ -175,7 +187,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2901818248983639472}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -183,7 +195,6 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
-  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -208,7 +219,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!65 &2010917401319401557
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -248,6 +258,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4d92346b5b0b48b46a662ac905bb64ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &4890035168193110153
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2901818248983639472}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25f7bb0ce4352bc449e378fa29bc75e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &5084778333615810664
@@ -307,7 +329,6 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
-  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -332,7 +353,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!136 &5084778333615810665
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -429,9 +449,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f4f4f47f146b78439db9e85799ed30c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myCaart: {fileID: 0}
-  moveJudgeObj_R: {fileID: 2901818248983639472}
-  moveJudgeObj_L: {fileID: 1011145097979041878}
+  playerMoveDatas: []
 --- !u!114 &2528681985857771477
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -508,7 +526,6 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
-  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -533,7 +550,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!135 &7856383929888021689
 SphereCollider:
   m_ObjectHideFlags: 0

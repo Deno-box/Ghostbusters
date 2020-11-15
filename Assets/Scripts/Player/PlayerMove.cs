@@ -17,7 +17,7 @@ public class PlayerMove : MonoBehaviour
     // 初期化処理
     private void Awake()
     {
-        // CinemachineDollyCart を設定
+        // 操作するDollyCartを設定
         myCaart = this.GetComponent<CinemachineDollyCart>();
     }
 

@@ -10,7 +10,6 @@ using Cinemachine;
 // TODO :: 自動で設定できるようにしておく
 // SplineとSplineMeshTiling,SplineSmootherを必ず追加する
 [RequireComponent(typeof(SplineMesh.Spline))]
-//[RequireComponent(typeof(SplineMesh.SplineMeshTiling))]
 [RequireComponent(typeof(SplineMesh.SplineSmoother))]
 [RequireComponent(typeof(SplineMesh.SplineExtrusion))]
 
@@ -25,11 +24,6 @@ public class DollyTrackToSpline : MonoBehaviour
     {
         get { return this.path; }
     }
-    //public CinemachinePath Path
-    //{
-    //    get { return this.path; }
-    //}
-
     // スプライン
     private SplineMesh.Spline spline = null;
 
@@ -73,11 +67,6 @@ public class DollyTrackToSpline : MonoBehaviour
             // ノードを作成、追加
             SplineMesh.SplineNode node = new SplineMesh.SplineNode(pos, Vector3.up);
             this.spline.nodes.Add(node);
-
-            //Debug.Log(i*step + " / " + pos);
-            //Debug.Log(i*step + " / " + pos);
         }
-        // this.path.EvaluatePositionはWaypointsの最大値(maxPos)が終点になっている
-        //Debug.Log(this.path.PathLength + " / " + this.path.EvaluatePosition(6.0f) + " / " + this.path.EvaluatePosition(this.path.PathLength));
     }
 }

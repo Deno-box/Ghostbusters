@@ -15,6 +15,7 @@ public class PlayerFollowCamera : MonoBehaviour
     private float rotSpeed = 0.0f;
 
     // カメラとターゲットとのオフセット
+    [SerializeField]
     private Vector3 offset;
     private Vector3 offsetRot;
 
@@ -22,7 +23,6 @@ public class PlayerFollowCamera : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        offset = this.transform.position - target.transform.position;
     }
 
     // Update is called once per frame

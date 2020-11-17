@@ -15,17 +15,17 @@ public class ScoreTest : MonoBehaviour
         // Xキー押下
         if (Input.GetKeyDown(KeyCode.X))
         {
-            GameDataManager.AddDecisionNum(GameDataManager.SCORE_TYPE.GREAT);
+            GameDataManager.AddDecisionNum((int)GameDataManager.SCORE_TYPE.GREAT);
         }
         // Cキー押下
         if (Input.GetKeyDown(KeyCode.C))
         {
-            GameDataManager.AddDecisionNum(GameDataManager.SCORE_TYPE.GOOD);
+            GameDataManager.AddDecisionNum((int)GameDataManager.SCORE_TYPE.GOOD);
         }
         // Zキー押下
         if (Input.GetKeyDown(KeyCode.Z))
         {
-            GameDataManager.AddDecisionNum(GameDataManager.SCORE_TYPE.MISS);
+            GameDataManager.AddDecisionNum((int)GameDataManager.SCORE_TYPE.MISS);
         }
 
     }

@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Uiscript : MonoBehaviour
+public class  Uiscript: MonoBehaviour
 {
+    
     //良判定のテキスト
     [SerializeField]
     Text greatText;
@@ -22,42 +23,61 @@ public class Uiscript : MonoBehaviour
     Text totalText;
 
     //スコア
-    int great = 0;
-    int good  = 0;
-    int miss  = 0;
+    private int[] scorePoint = new int[(int)GameDataManager.SCORE_TYPE.ALL_TYPE];
+
 
     //トータルスコア
-    int greatScore = 0;
-    int goodScore  = 0;
-    int missScore  = 0;
-    int totalScore = 0;
+    private int totalScore = 0;
+
+    //判定の数
+    private int[] decisionNum = new int[(int)GameDataManager.SCORE_TYPE.ALL_TYPE];
+
+
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        // スコア値,判定の数初期化
+        for (int i = 0; i < (int)GameDataManager.SCORE_TYPE.ALL_TYPE; i++)
+        {
+           this. scorePoint[i] = 0;
+            decisionNum[i] = 0;
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
+
+
         //GameDataMnagerからデータを持ってくる
-        this.great = GameDataManager.GetDecisionNum(GameDataManager.SCORE_TYPE.GREAT);
-        this.good = GameDataManager.GetDecisionNum(GameDataManager.SCORE_TYPE.GOOD);
-        this.miss = GameDataManager.GetDecisionNum(GameDataManager.SCORE_TYPE.MISS);
+        for(int i=0;i<(int)GameDataManager.SCORE_TYPE.ALL_TYPE;i++)
+        {
+            scorePoint[i] = GameDataManager.GetScore(i);
+            decisionNum[i] = GameDataManager.GetDecisionNum(i);
+        }
 
-        //それぞれの数値を取得する
-        this.greatScore = GameDataManager.GetScore(GameDataManager.SCORE_TYPE.GREAT);
-        this.goodScore = GameDataManager.GetScore(GameDataManager.SCORE_TYPE.GOOD);
-        this.missScore = GameDataManager.GetScore(GameDataManager.SCORE_TYPE.MISS);
 
+        
         //トータルスコアの計算
-        totalScore = (great * greatScore) + (good * goodScore) + (miss * missScore);
+        for (int i = 0; i < (int)GameDataManager.SCORE_TYPE.ALL_TYPE; i++)
+        {
+            this.totalScore += scorePoint[i] * decisionNum[i];
+                        
+            if(totalScore < 0)
+            {
+                totalScore = 0;
+            }
 
+           
+        }
+
+
+           
      //各スコアの表示
-     greatText.text = "Great x" + great.ToString();
-     goodText.text  = "Good x"  + great.ToString();
-     missText.text  = "Miss x"  + miss .ToString();
+     greatText.text = "Great x" + decisionNum[0].ToString();
+     goodText.text  = "Good x"  + decisionNum[1].ToString();
+     missText.text  = "Miss x"  + decisionNum[2].ToString();
      totalText.text = "TotalScore" + totalScore.ToString();     
         
     }

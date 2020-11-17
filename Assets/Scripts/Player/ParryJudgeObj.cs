@@ -9,10 +9,12 @@ public class ParryJudgeObj : MonoBehaviour
     private PlayerParryAction player = null;
 
     // 敵に衝突したらプレイヤーのパリィアクションに報告を行う
-    private void OnTriggerEnter(Collider other)
+    void OnTriggerEnter(Collider other)
     {
         // プレイヤーに衝突の報告を行う
-        if (other.tag == "Enemy")
+        if (other.tag == "EnemyBullet")
+        {
             player.ParryJudgeCollision();
+        }
     }
 }

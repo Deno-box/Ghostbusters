@@ -6,7 +6,7 @@ using Cinemachine;
 // 範囲内にPlayerが入ったらEnemyの移動を開始させるトリガー
 public class EnemyMoveTrigger : MonoBehaviour
 {
-    // 移動をさせたいオブジェクト
+    // アクティブにさせたいオブジェクト
     [SerializeField]
     private GameObject moveObject = null;
 
@@ -16,10 +16,17 @@ public class EnemyMoveTrigger : MonoBehaviour
         moveObject.SetActive(false);
     }
 
+    private void Update()
+    {
+    }
+
     // 通過するとアクティブにする
     private void OnTriggerEnter(Collider other)
     {
         if (other.transform.parent.name == "Player")
+        {
             moveObject.SetActive(true);
+            Destroy(this.gameObject);
+        }
     }
 }

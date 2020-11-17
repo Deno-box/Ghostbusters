@@ -6,6 +6,9 @@ TagManager:
   tags:
   - Enemy
   - PlayerParry
+  - EnemyBullet
+  - PlayerBody
+  - BossEnemy
   layers:
   - Default
   - TransparentFX

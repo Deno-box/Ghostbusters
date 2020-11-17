@@ -42,14 +42,14 @@ public class Uiscript : MonoBehaviour
     void Update()
     {
         //GameDataMnagerからデータを持ってくる
-        this.great = GameDataManager.GetDecisionNum((int)GameDataManager.SCORE_TYPE.GREAT);
-        this.good = GameDataManager.GetDecisionNum((int)GameDataManager.SCORE_TYPE.GOOD);
-        this.miss = GameDataManager.GetDecisionNum((int)GameDataManager.SCORE_TYPE.MISS);
+        this.great = GameDataManager.GetDecisionNum(GameDataManager.SCORE_TYPE.GREAT);
+        this.good = GameDataManager.GetDecisionNum(GameDataManager.SCORE_TYPE.GOOD);
+        this.miss = GameDataManager.GetDecisionNum(GameDataManager.SCORE_TYPE.MISS);
 
         //それぞれの数値を取得する
-        this.greatScore = GameDataManager.GetScore((int)GameDataManager.SCORE_TYPE.GREAT);
-        this.goodScore = GameDataManager.GetScore((int)GameDataManager.SCORE_TYPE.GOOD);
-        this.missScore = GameDataManager.GetScore((int)GameDataManager.SCORE_TYPE.MISS);
+        this.greatScore = GameDataManager.GetScore(GameDataManager.SCORE_TYPE.GREAT);
+        this.goodScore = GameDataManager.GetScore(GameDataManager.SCORE_TYPE.GOOD);
+        this.missScore = GameDataManager.GetScore(GameDataManager.SCORE_TYPE.MISS);
 
         //トータルスコアの計算
         totalScore = (great * greatScore) + (good * goodScore) + (miss * missScore);

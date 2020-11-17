@@ -18,12 +18,12 @@ public class TitleController : MonoBehaviour
     }
 
     // テキスト
-    [NamedArrayAttribute(new string[] { "New Game", "Continue", "Options" })]
+    //[NamedArrayAttribute(new string[] { "New Game", "Continue", "Options" })]
     [SerializeField]
     Text[] textType = new Text[(int)TextType.ALL_TYPE];
 
     // 矢印画像
-    [NamedArrayAttribute(new string[] { "Left Arrow", "Right Arrow" })]
+    //[NamedArrayAttribute(new string[] { "Left Arrow", "Right Arrow" })]
     [SerializeField]
     Image[] arrowImage = new Image[2];
 

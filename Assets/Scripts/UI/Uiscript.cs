@@ -53,8 +53,8 @@ public class  Uiscript: MonoBehaviour
         //GameDataMnagerからデータを持ってくる
         for(int i=0;i<(int)GameDataManager.SCORE_TYPE.ALL_TYPE;i++)
         {
-            scorePoint[i] = GameDataManager.GetScore(i);
-            decisionNum[i] = GameDataManager.GetDecisionNum(i);
+            scorePoint[i] = GameDataManager.GetScore((GameDataManager.SCORE_TYPE)i);
+            decisionNum[i] = GameDataManager.GetDecisionNum((GameDataManager.SCORE_TYPE)i);
         }
 
 

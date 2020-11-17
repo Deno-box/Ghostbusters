@@ -26,49 +26,70 @@ public class BossEnemyBulletGenerator : MonoBehaviour
     // 一度に生成する弾の数
     [SerializeField]
     private int instanceBulletNum = 0;
-    
+    // 生成する際のオフセット
+    [SerializeField]
+    private float instanceOffset = 0.0f;
     // 生成するパスのリスト
     [SerializeField]
     private List<shootPath> pathList = new List<shootPath>();
+    // 弾を生成するポジション
+    private int positionCounter = 0;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
+        // 弾生成用カウンターを加算
+        positionCounter++;
+        // 発射インターバルを加算
         shootInterval += Time.deltaTime;
+        // インターバルを超えたら弾を生成
         if (shootInterval >= shootIntervalMax)
         {
+            // 弾を生成したパスの番号
+            int instancePathNum = -1;
             // 指定の個数弾を生成
             for (int i = 0; i < instanceBulletNum; i++)
+            {
+                // 密度はいい感じ
+                // ランダムすぎる。面白さが平均化されない
+                // パターン
+
+                // 弾を生成して移動レーンを制限する
                 ShootBullet();
+                // 同時に同じパスに生成しないようにする
+                //while(instancePathNum == ShootBullet(instancePathNum))
+                //{
+                //    break;
+                //}
+            }
+            // 発射インターバルをリセット
             shootInterval = 0.0f;
         }
+
+
+        // TODO : ボスに追加する
+        if (this.GetComponent<CinemachineDollyCart>().m_Position >= this.GetComponent<CinemachineDollyCart>().m_Path.PathLength)
+            Destroy(this.gameObject);
     }
 
     // 弾を生成
-    private void ShootBullet()
+    // 生成したパスの番号を返す
+    private void ShootBullet(int _lastInstancePathNum = 0)
     {
         // 生成するレーンの番号を設定
-        int laneNum = Random.Range(0, pathList.Count);
-        // 生成するポジション
-        float pathMaxPos = pathList[laneNum].maxPos - pathList[laneNum].minPos;
-
-        // ボス
-        float bossPosPer = this.GetComponent<CinemachineDollyCart>().m_Position / this.GetComponent<CinemachineDollyCart>().m_Path.PathLength;
-        float pathPos = pathMaxPos * bossPosPer + pathList[laneNum].minPos;
-
-        Debug.Log("Shoot");
+        int laneNum = Random.Range(0, this.pathList.Count);
+        // 生成するポジションを計算
+        float pathMaxPos = this.pathList[laneNum].maxPos - this.pathList[laneNum].minPos;
+        float pathPos = positionCounter + this.pathList[laneNum].minPos + instanceOffset;
 
         // 弾を生成
         GameObject obj = Instantiate(bulletPrefab, Vector3.zero, Quaternion.identity);
-        obj.GetComponent<CinemachineDollyCart>().m_Path = pathList[laneNum].path;
+        obj.GetComponent<CinemachineDollyCart>().m_Path = this.pathList[laneNum].path;
         obj.GetComponent<CinemachineDollyCart>().m_Position = pathPos;
+        obj.GetComponent<BossEnemyBullet>().BossTrs = this.transform;
 
-        obj.transform.parent = this.transform;
+        //obj.transform.parent = this.transform;
     }
 }

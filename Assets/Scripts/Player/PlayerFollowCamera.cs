@@ -7,30 +7,37 @@ public class PlayerFollowCamera : MonoBehaviour
     // 追跡するターゲット
     [SerializeField]
     private GameObject target = null;
+    // カメラ位置となるオブジェクト
+    [SerializeField]
+    private GameObject offsetObj = null;
     // 移動速度
     [SerializeField]
     private float moveSpeed = 0.0f;
     // 回転速度
     [SerializeField]
     private float rotSpeed = 0.0f;
-
     // カメラとターゲットとのオフセット
     [SerializeField]
     private Vector3 offset;
-    private Vector3 offsetRot;
-
+    // 1フレーム前のカメラのポジション
+    [SerializeField]
+    private Vector3 oldPos;
 
     // Start is called before the first frame update
     void Start()
     {
+        //カメラの位置調整用
+        offsetObj.transform.Translate(offset.x, offset.y, offset.z);
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        // オフセットでオフセットできてるのは座標のみで回転を考慮していないため意図しない挙動を起こす
-        this.transform.position = Vector3.Lerp(this.transform.position, target.transform.position + offset, moveSpeed * Time.deltaTime);
-       
+        // ゴムひもカメラ
+        this.transform.position = Vector3.Lerp(this.transform.position, oldPos, moveSpeed * Time.deltaTime);
+        // 1フレーム前のカメラのポジション
+        oldPos = offsetObj.transform.position;
+
         // 回転
         var vectorToTarget = target.transform.position - this.transform.position;
         var targetRotate = Quaternion.LookRotation(vectorToTarget);

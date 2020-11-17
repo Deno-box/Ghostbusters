@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
+// タイトルコントローラ
 public class TitleController : MonoBehaviour
 {
     // テキストの種類
@@ -16,13 +17,10 @@ public class TitleController : MonoBehaviour
         ALL_TYPE = 3,
     }
 
-    // 画像位置補正X値
-    private const float IMAGE_OFFSET_X = 145.0f;
-
     // テキスト
     [NamedArrayAttribute(new string[] { "New Game", "Continue", "Options" })]
     [SerializeField]
-    Text[] texts = new Text[(int)TextType.ALL_TYPE];
+    Text[] textType = new Text[(int)TextType.ALL_TYPE];
 
     // 矢印画像
     [NamedArrayAttribute(new string[] { "Left Arrow", "Right Arrow" })]
@@ -35,53 +33,60 @@ public class TitleController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        // 初期座標格納用
-        RectTransform temp = this.texts[(int)TextType.NEW_GAME].rectTransform;
-
-        // 矢印画像初期座標設定
-        this.arrowImage[0].rectTransform.position = new Vector3(temp.position.x + IMAGE_OFFSET_X, temp.position.y, temp.position.z);
-        this.arrowImage[1].rectTransform.position = new Vector3(temp.position.x - IMAGE_OFFSET_X, temp.position.y, temp.position.z);
     }
 
     // Update is called once per frame
     void Update()
     {
+        // 選択中のテキスト位置を取得
+        RectTransform temp = this.textType[this.selecting].rectTransform;
+
+        // 画像オフセット値設定
+        float offsetX = temp.sizeDelta.x / 1.2f;
+
+        // モードの選択
+        ChoiceMode(ref temp, offsetX);
+
+        // モードの決定
+        ModeSelect();
+
+        // 画像を動かす
+        MoveImage(ref temp, offsetX);
+    }
+
+    // モードの選択
+    private void ChoiceMode(ref RectTransform _rect, float _offsetX)
+    {
         // ←キー（Aキー）を押下
-        if (Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.A))
+        if (Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.D))
         {
             if (this.selecting < (int)TextType.ALL_TYPE - 1)
             {
                 this.selecting++;
             }
-            ChangeArrowPos(this.selecting);
+            ChangeImagePos(ref _rect, _offsetX);
         }
         // →キー（Dキー）を押下
-        if (Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.D))
+        if (Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.A))
         {
             if (this.selecting > 0)
             {
                 this.selecting--;
             }
-            ChangeArrowPos(this.selecting);
+            ChangeImagePos(ref _rect, _offsetX);
         }
-
-        // モード選択
-        ChoiceMode();
     }
 
-    // テキストの変更
-    void ChangeArrowPos(int _selecting)
+    // 画像位置変更
+    private void ChangeImagePos(ref RectTransform _rect, float _offsetX)
     {
-        // 選択中のテキスト位置を取得
-        RectTransform temp = this.texts[_selecting].rectTransform;
+        this.arrowImage[0].rectTransform.position = new Vector3(_rect.position.x + _offsetX, _rect.position.y, _rect.position.z);
+        this.arrowImage[1].rectTransform.position = new Vector3(_rect.position.x - _offsetX, _rect.position.y, _rect.position.z);
 
-        // 画像座標設定
-        this.arrowImage[0].rectTransform.position = new Vector3(temp.position.x + IMAGE_OFFSET_X, temp.position.y, temp.position.z);
-        this.arrowImage[1].rectTransform.position = new Vector3(temp.position.x - IMAGE_OFFSET_X, temp.position.y, temp.position.z);
     }
 
     // モード選択
-    void ChoiceMode()
+    private void ModeSelect()
     {
         //　Enterキー（SPACEキー）を押下
         if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.Space))
@@ -101,5 +106,16 @@ public class TitleController : MonoBehaviour
                     break;
             }
         }
+    }
+
+    // 画像を動かす
+    private void MoveImage(ref RectTransform _rect, float _offsetX)
+    {
+        float t = 1.0f;
+        float f = 1.0f / t;
+        float sin = Mathf.Sin(3 * Mathf.PI * f * Time.time);
+
+        this.arrowImage[0].rectTransform.position = new Vector3((_rect.position.x + _offsetX) + sin, _rect.position.y, _rect.position.z);
+        this.arrowImage[1].rectTransform.position = new Vector3((_rect.position.x - _offsetX) - sin, _rect.position.y, _rect.position.z);
     }
 }

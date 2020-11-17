@@ -48,13 +48,13 @@ public class BossEnemyBulletGenerator : MonoBehaviour
         if (shootInterval >= shootIntervalMax)
         {
             // 弾を生成したパスの番号
-            int instancePathNum = -1;
+            //int instancePathNum = -1;
             // 指定の個数弾を生成
             for (int i = 0; i < instanceBulletNum; i++)
             {
                 // 密度はいい感じ
                 // ランダムすぎる。面白さが平均化されない
-                // パターン
+                // パターン化する
 
                 // 弾を生成して移動レーンを制限する
                 ShootBullet();
@@ -83,12 +83,12 @@ public class BossEnemyBulletGenerator : MonoBehaviour
         // 生成するポジションを計算
         float pathMaxPos = this.pathList[laneNum].maxPos - this.pathList[laneNum].minPos;
         float pathPos = positionCounter + this.pathList[laneNum].minPos + instanceOffset;
+        pathPos = Mathf.Clamp(pathPos, this.pathList[laneNum].minPos, this.pathList[laneNum].maxPos);
 
         // 弾を生成
         GameObject obj = Instantiate(bulletPrefab, Vector3.zero, Quaternion.identity);
         obj.GetComponent<CinemachineDollyCart>().m_Path = this.pathList[laneNum].path;
         obj.GetComponent<CinemachineDollyCart>().m_Position = pathPos;
-        obj.GetComponent<BossEnemyBullet>().BossTrs = this.transform;
 
         //obj.transform.parent = this.transform;
     }

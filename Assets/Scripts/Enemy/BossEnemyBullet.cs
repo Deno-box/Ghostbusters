@@ -4,42 +4,47 @@ using UnityEngine;
 
 public class BossEnemyBullet : MonoBehaviour
 {
-    public enum BulletState
+    public enum BulletStateEnum
     {
         EnemyBullet,    // 敵の弾の状態
         Parry,          // はじかれた後の状態
         None            // 初期化
     }
 
-    // ボスのトランスフォーム
-    private Transform bossTrs = null;
-    public  Transform BossTrs { set { bossTrs = value; } }
-
-    // 跳ね返るときの弾の速度
-    [SerializeField]
-    private float moveSpeed;
     // 自身のステート
-    private BulletState state = BulletState.EnemyBullet;
-    private IBulletState bulletActiveState;
-    private IBulletState[] stateList = new IBulletState[2];
+    private BulletStateEnum lastStateEnum = BulletStateEnum.EnemyBullet;
+    private BulletState activeState;
+    private BulletState[] stateList = new BulletState[2];
 
-
+    // Start
     private void Start()
     {
-        stateList[0] = new EnemyBulletState();
-        stateList[1] = new EnemyBulletParryState();
+        // ステートを初期化
+        this.gameObject.AddComponent<EnemyBulletState>();
+        this.gameObject.AddComponent<EnemyBulletParryState>();
+        stateList[0] = GetComponent<EnemyBulletState>();
+        stateList[1] = GetComponent<EnemyBulletParryState>();
 
-        bulletActiveState = stateList[0];
+        activeState = stateList[0];
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-        bulletActiveState = stateList[(int)this.bulletActiveState.Update()];
+        // 実行されるステートが変更されていたら変更を行う
+        if (lastStateEnum != activeState.State)
+        {
+            lastStateEnum = activeState.State;
+            activeState = stateList[(int)lastStateEnum];
+            activeState.StateInitialize();
+        }
+
+        // 現在アクティブなステートを更新
+        this.activeState.StateUpdate();
     }
     
     private void OnTriggerEnter(Collider _other)
     {
-        this.bulletActiveState.OnTriggerEnter(_other);
+        this.activeState.StateOnTriggerEnter(_other);
     }
 }

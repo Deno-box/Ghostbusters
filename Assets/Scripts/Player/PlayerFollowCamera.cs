@@ -16,7 +16,7 @@ public class PlayerFollowCamera : MonoBehaviour
 
     // カメラとターゲットとのオフセット
     [SerializeField]
-    private Vector3 offset;
+    private Vector3 offset = Vector3.zero;
     private Vector3 offsetRot;
 
 

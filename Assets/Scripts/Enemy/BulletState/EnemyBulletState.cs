@@ -2,43 +2,44 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyBulletState :  IBulletState
+public class EnemyBulletState : BulletState
 {
-    // パリィ用エフェクト
-    [SerializeField]
-    private GameObject parryFX;
-    // ダメージ用エフェクト
-    [SerializeField]
-    private GameObject damageFX;
+    //// パリィ用エフェクト
+    //private GameObject parryFX = null;
+    //// ダメージ用エフェクト
+    //private GameObject damageFX = null;
 
-    // プロパティとして状態を返す
+    // 生存用カウンター
+    private float counter = 0;
+    // 一定時間経過すると削除されるカウンター
+    private float destroyCounterMax = 2.5f;
 
-    // 次のステート
-    private BossEnemyBullet.BulletState nextState = BossEnemyBullet.BulletState.EnemyBullet;
-
+    // 初期化処理
+    public override void StateInitialize()
+    {
+    }
 
     // 更新処理
-    public BossEnemyBullet.BulletState Update()
+    public override void StateUpdate()
     {
-        if (nextState != BossEnemyBullet.BulletState.EnemyBullet)
-            return nextState;
-
-        Debug.Log("EnemyBulletState");
-        return BossEnemyBullet.BulletState.EnemyBullet;
+        // 一定時間経過後、自身を削除する
+        counter += Time.deltaTime;
+        if (counter >= destroyCounterMax)
+            Destroy(this.gameObject);
     }
     
     // OnTrigger時の処理
-    public void OnTriggerEnter(Collider _other)
+    public override void StateOnTriggerEnter(Collider _other)
     {
         // 敵の弾の状態でプレイヤーのパリィ範囲内に入ったらはじかれた後の状態に遷移
         if (_other.tag == "PlayerParry")
         {
             //Instantiate(damageFX, this.transform.position, Quaternion.identity);
-            nextState = BossEnemyBullet.BulletState.Parry;
+            state = BossEnemyBullet.BulletStateEnum.Parry;
         }
         else if(_other.tag == "PlayerBody")
         {
-            Instantiate(damageFX, this.transform.position, Quaternion.identity);
+            //Instantiate(damageFX, this.transform.position, Quaternion.identity);
             Destroy(this.gameObject);
         }
     }

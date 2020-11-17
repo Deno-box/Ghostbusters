@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 3991802684196406173}
   m_Layer: 0
   m_Name: FloatingEnemy
-  m_TagString: Enemy
+  m_TagString: BossEnemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -162,7 +162,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: ef46c97e755d798438b4f3d579696156,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.4
+      value: -1.23
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: ef46c97e755d798438b4f3d579696156,
         type: 3}

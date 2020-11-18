@@ -6,7 +6,7 @@ using Cinemachine;
 public class PlayerMove : MonoBehaviour
 {
     // 追従するオブジェクト
-    private CinemachineDollyCart myCaart = null;
+    private CinemachineDollyCart myCart = null;
 
     // 左右どちらのキーが押されたか
     private PlayerMoveData.MoveDir moveDir = PlayerMoveData.MoveDir.None;
@@ -18,7 +18,7 @@ public class PlayerMove : MonoBehaviour
     private void Awake()
     {
         // 操作するDollyCartを設定
-        myCaart = this.GetComponent<CinemachineDollyCart>();
+        myCart = this.GetComponent<CinemachineDollyCart>();
     }
 
     // Update is called once per frame
@@ -44,8 +44,8 @@ public class PlayerMove : MonoBehaviour
     // 移動するパスを変更
     public void ChangeMovePath(CinemachinePathBase _path,float _position = 0.0f)
     {
-        myCaart.m_Path     = _path;
-        myCaart.m_Position = _position;
+        myCart.m_Path     = _path;
+        myCart.m_Position = _position;
     }
 
     // キャラクターを移動させる
@@ -58,7 +58,7 @@ public class PlayerMove : MonoBehaviour
             if (CheckMovePossible(data))
             {
                 // ポジションを修正
-                float pos = myCaart.m_Position - data.nowPosMin;
+                float pos = myCart.m_Position - data.nowPosMin;
                 float maxPos = data.nowPosMax - data.nowPosMin;
 
                 // 現在のパスで割合を計算
@@ -84,10 +84,10 @@ public class PlayerMove : MonoBehaviour
     private bool CheckMovePossible(PlayerMoveData _data)
     {
         // 現在のPosition
-        float position = myCaart.m_Position;
+        float position = myCart.m_Position;
 
         // パスの名前は一致しているか / 移動可能範囲内か / 入力されたキーは一致しているか
-        if (myCaart.m_Path.name == _data.nowPath.name
+        if (myCart.m_Path.name == _data.nowPath.name
             && GhosterUtility.CalculationUtility.IsWithinRange(position, _data.nowPosMin, _data.nowPosMax)
             && moveDir == _data.moveDir)
             return true;

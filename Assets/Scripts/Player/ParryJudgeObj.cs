@@ -5,16 +5,19 @@ using UnityEngine;
 public class ParryJudgeObj : MonoBehaviour
 {
     // 自身の親オブジェクト
-    [SerializeField]
-    private PlayerParryAction player = null;
+    private PlayerParryState player = null;
+
+    private void Start()
+    {
+        if (player == null)
+            player = this.transform.parent.GetComponent<PlayerParryState>();
+    }
 
     // 敵に衝突したらプレイヤーのパリィアクションに報告を行う
-    void OnTriggerEnter(Collider other)
+    void OnTriggerEnter(Collider _other)
     {
         // プレイヤーに衝突の報告を行う
-        if (other.tag == "EnemyBullet")
-        {
-            player.ParryJudgeCollision();
-        }
+        if (_other.tag == "EnemyBullet")
+            player.ParryJudge();
     }
 }

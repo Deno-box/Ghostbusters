@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 8660959755077317166}
   - component: {fileID: 9188481967273766189}
   - component: {fileID: 3991802684196406173}
+  - component: {fileID: 2945987684397227321}
   m_Layer: 0
   m_Name: FloatingEnemy
   m_TagString: BossEnemy
@@ -147,6 +148,21 @@ MonoBehaviour:
   instanceBulletNum: 0
   instanceOffset: 0
   pathList: []
+--- !u!114 &2945987684397227321
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8660959755077317152}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 542d3444771b06542b8970dff6aab352, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  destroyFX: {fileID: 0}
+  bossHitPoint: 200
+  damage: 40
 --- !u!1001 &8871764746195218239
 PrefabInstance:
   m_ObjectHideFlags: 0

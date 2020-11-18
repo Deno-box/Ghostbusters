@@ -51,9 +51,9 @@ public class PlayerStateController : MonoBehaviour
             activeState.Exit();
             activeState = stateList[(int)activeState.State];
             activeState.Initialize();
+            lastActiveStateEum = activeState.State;
         }
 
-        lastActiveStateEum = activeState.State;
     }
 
     private void OnTriggerEnter(Collider _other)

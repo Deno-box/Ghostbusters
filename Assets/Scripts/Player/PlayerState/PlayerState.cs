@@ -8,6 +8,10 @@ public abstract class PlayerState : MonoBehaviour
     protected PlayerStateController.PlayerStateEnum state;
     public PlayerStateController.PlayerStateEnum State { get { return state; } }
 
+    //// 次のステート
+    //protected PlayerStateController.PlayerStateEnum nextState;
+    //public PlayerStateController.PlayerStateEnum NextState { get { return nextState; } }
+
     // 初期化処理
     public abstract void Initialize();
 

@@ -29,7 +29,7 @@ public class BossEnemyBullet : MonoBehaviour
     }
 
     // Update is called once per frame
-    void FixedUpdate()
+    void Update()
     {
         // 実行されるステートが変更されていたら変更を行う
         if (lastStateEnum != activeState.State)

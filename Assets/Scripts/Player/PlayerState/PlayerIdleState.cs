@@ -7,18 +7,25 @@ public class PlayerIdleState : PlayerState
     // 初期化処理
     public override void Initialize()
     {
-        state = PlayerStateController.PlayerStateEnum.Idle;
+        this.state = PlayerStateController.PlayerStateEnum.Idle;
     }
 
     // 実行処理
     public override void Execute()
     {
         // マウスクリックでパリィ状態に遷移
-        if (Input.GetMouseButtonDown(1) || Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(1))
+        {
+            this.GetComponent<PlayerParryState>().rotDir = -1.0f;
             this.state = PlayerStateController.PlayerStateEnum.Parry;
-        // ADキーで左右移動状態に遷移
-        else
+        }
+        else if(Input.GetMouseButtonDown(0))
+        {
+            this.GetComponent<PlayerParryState>().rotDir = 1.0f;
+            this.state = PlayerStateController.PlayerStateEnum.Parry;
+        }
         // Aキーで左のパスに移動
+        else
         if (Input.GetKeyDown(KeyCode.A))
         {
             // 左入力キーを設定

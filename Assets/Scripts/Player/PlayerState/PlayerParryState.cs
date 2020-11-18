@@ -25,6 +25,7 @@ public class PlayerParryState : PlayerState
 
     // アニメーション用タイマー
     private float aniamtionTimer;
+    public float rotDir;
 
 
     // 初期化処理
@@ -121,6 +122,6 @@ public class PlayerParryState : PlayerState
         float rate = 360.0f / parryActiveTime;
         aniamtionTimer += Time.deltaTime;
         GameObject obj = this.transform.GetChild(3).gameObject;
-        obj.transform.localRotation = Quaternion.Euler(-90.0f, 0.0f, aniamtionTimer * rate);
+        obj.transform.localRotation = Quaternion.Euler(-90.0f, 0.0f, aniamtionTimer * rate * rotDir);
     }
 }

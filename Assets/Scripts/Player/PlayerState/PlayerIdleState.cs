@@ -13,6 +13,8 @@ public class PlayerIdleState : PlayerState
     // 実行処理
     public override void Execute()
     {
+        // TODO : 左右キー判定やマウスの左右判定はこのクラスで判定しているため、後で変更しておく
+        
         // マウスクリックでパリィ状態に遷移
         if (Input.GetMouseButtonDown(1))
         {

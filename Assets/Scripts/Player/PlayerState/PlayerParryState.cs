@@ -40,7 +40,7 @@ public class PlayerParryState : PlayerState
         parryObj.SetActive(false);
         isParryActive = false;
         parryJudgeTime = 0.0f;
-        state = PlayerStateController.PlayerStateEnum.Parry;
+        this.state = PlayerStateController.PlayerStateEnum.Parry;
 
         aniamtionTimer = 0.0f;
     }

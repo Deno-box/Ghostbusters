@@ -18,7 +18,6 @@ public class PlayerMoveLRState : PlayerState
     private PlayerMoveDataList playerMoveData;
 
     private GameObject nextPosObj = null;
-
     private bool isMove = false;
 
     // 初期化処理
@@ -44,7 +43,7 @@ public class PlayerMoveLRState : PlayerState
         this.isMove = false;
         //moveDir = PlayerMoveData.MoveDir.Left;
         if (!ChangeMove()) { }
-            //this.state = PlayerStateController.PlayerStateEnum.Idle;
+
 
     }
 
@@ -74,9 +73,13 @@ public class PlayerMoveLRState : PlayerState
     // 終了処理
     public override void Exit()
     {
+        // TODO ::
+        // 移動不可の場合でもNextPosを参照しようとして止まる
+        // ChangeMove()で移動不可の場合でも移動しようとしてしまう(移動データを参照できていない?)
         myCart.m_Path = nextPosObj.GetComponent<CinemachineDollyCart>().m_Path;
         myCart.m_Position = nextPosObj.GetComponent<CinemachineDollyCart>().m_Position;
         myCart.enabled = true;
+
 
 
         GameObject obj = this.transform.GetChild(3).gameObject;
@@ -93,13 +96,10 @@ public class PlayerMoveLRState : PlayerState
     // 移動するパスを変更
     public void ChangeMovePath(CinemachinePathBase _path, float _position = 0.0f)
     {
-        //myCart.m_Path = _path;
-        //myCart.m_Position = _position;
-
-        
         // 移動先用の座標を取得
         nextPosObj.GetComponent<CinemachineDollyCart>().m_Path = _path;
         nextPosObj.GetComponent<CinemachineDollyCart>().m_Position = _position;
+
 
         this.isMove = true;
         myCart.enabled = false;

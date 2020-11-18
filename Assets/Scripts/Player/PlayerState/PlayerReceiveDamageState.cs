@@ -7,7 +7,7 @@ public class PlayerReceiveDamageState : PlayerState
     // 初期化処理
     public override void Initialize()
     {
-        this.state = this.state = PlayerStateController.PlayerStateEnum.ReceiveDamage;
+        this.state = PlayerStateController.PlayerStateEnum.ReceiveDamage;
     }
 
     // 実行処理

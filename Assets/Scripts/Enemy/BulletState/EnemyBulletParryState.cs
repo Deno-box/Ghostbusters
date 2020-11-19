@@ -19,6 +19,8 @@ public class EnemyBulletParryState : BulletState
         // レーン移動を削除
         Destroy(this.GetComponent<CinemachineDollyCart>());
         // ターゲットであるボスを検索
+
+        // ボスが消えると参照できない
         bossTrs = GameObject.FindWithTag("BossEnemy").transform;
     }
 

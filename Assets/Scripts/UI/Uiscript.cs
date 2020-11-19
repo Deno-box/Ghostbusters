@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class Uiscript : MonoBehaviour
 {
     // 判定数テキスト格納用
-    [NamedArrayAttribute(new string[] { "Great Text", "Good Text", "Miss Text" })]
+    //[NamedArrayAttribute(new string[] { "Great Text", "Good Text", "Miss Text" })]
     [SerializeField]
     private Text[] decisionCountTexts = new Text[3];
 

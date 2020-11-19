@@ -67,23 +67,22 @@ public class PlayerMoveLRState : PlayerState
             float rate = 360.0f / moveTimerMax;
             GameObject obj = this.transform.GetChild(3).gameObject;
             obj.transform.rotation = Quaternion.Euler(new Vector3(moveTimer * rate * dir - 90.0f, -90.0f,90.0f));
+
         }
     }
 
     // 終了処理
     public override void Exit()
     {
-        // TODO ::
-        // 移動不可の場合でもNextPosを参照しようとして止まる
-        // ChangeMove()で移動不可の場合でも移動しようとしてしまう(移動データを参照できていない?)
-        myCart.m_Path = nextPosObj.GetComponent<CinemachineDollyCart>().m_Path;
-        myCart.m_Position = nextPosObj.GetComponent<CinemachineDollyCart>().m_Position;
-        myCart.enabled = true;
-
-
-
-        GameObject obj = this.transform.GetChild(3).gameObject;
-        obj.transform.rotation = Quaternion.Euler(new Vector3(-90.0f, 0.0f, 0.0f));
+        // 移動していたら
+        if (this.isMove)
+        {
+            myCart.m_Path = nextPosObj.GetComponent<CinemachineDollyCart>().m_Path;
+            myCart.m_Position = nextPosObj.GetComponent<CinemachineDollyCart>().m_Position;
+            myCart.enabled = true;
+            GameObject obj = this.transform.GetChild(3).gameObject;
+            obj.transform.rotation = Quaternion.Euler(new Vector3(-90.0f, 0.0f, 0.0f));
+        }
     }
 
     // OnTrigger処理
@@ -97,11 +96,11 @@ public class PlayerMoveLRState : PlayerState
     public void ChangeMovePath(CinemachinePathBase _path, float _position = 0.0f)
     {
         // 移動先用の座標を取得
-        nextPosObj.GetComponent<CinemachineDollyCart>().m_Path = _path;
+        nextPosObj.GetComponent<CinemachineDollyCart>().m_Path     = _path;
         nextPosObj.GetComponent<CinemachineDollyCart>().m_Position = _position;
 
 
-        this.isMove = true;
+        this.isMove    = true;
         myCart.enabled = false;
     }
 

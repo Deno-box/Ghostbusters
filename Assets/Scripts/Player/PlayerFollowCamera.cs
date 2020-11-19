@@ -18,7 +18,7 @@ public class PlayerFollowCamera : MonoBehaviour
     private float rotSpeed = 0.0f;
     // カメラとターゲットとのオフセット
     [SerializeField]
-    private Vector3 offset;
+    private Vector3 offset = Vector3.zero;
     // 1フレーム前のカメラのポジション
     [SerializeField]
     private Vector3 oldPos;

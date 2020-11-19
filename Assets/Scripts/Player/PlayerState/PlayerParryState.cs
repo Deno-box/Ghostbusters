@@ -5,9 +5,9 @@ using UnityEngine;
 public class PlayerParryState : PlayerState
 {
     // パリィの発生時間
-    private float parryActiveTime = 0.6f;
+    private float parryActiveTime = 0.4f;
     // fast判定
-    private float fastJudgeTime   = 0.6f;
+    private float fastJudgeTime   = 0.4f;
     // greatt判定
     private float greatJudgeTime  = 0.0f;
     // good判定
@@ -25,7 +25,7 @@ public class PlayerParryState : PlayerState
 
     // アニメーション用タイマー
     private float aniamtionTimer;
-    public float rotDir;
+    private int rotDir = 1;
 
 
     // 初期化処理
@@ -41,6 +41,12 @@ public class PlayerParryState : PlayerState
         isParryActive = false;
         parryJudgeTime = 0.0f;
         this.state = PlayerStateController.PlayerStateEnum.Parry;
+
+        // TODO: 変えておく
+        if (this.rotDir == 1)
+            this.rotDir = -1;
+        else
+            this.rotDir = 1;
 
         aniamtionTimer = 0.0f;
     }

@@ -14,11 +14,19 @@ public class PlayerMove : MonoBehaviour
     [SerializeField]
     private List<PlayerMoveData> playerMoveDatas = new List<PlayerMoveData>();
 
+    // サウンドマネージャー
+    [SerializeField]
+    private GameObject soundManager = null;
+    // サウンドコントローラー
+    private SoundController soundController = null;
+
     // 初期化処理
     private void Awake()
     {
         // 操作するDollyCartを設定
         myCaart = this.GetComponent<CinemachineDollyCart>();
+        // サウンドマネージャーのサウンドコントローラー
+        soundController = soundManager.GetComponent<SoundController>();
     }
 
     // Update is called once per frame
@@ -27,6 +35,8 @@ public class PlayerMove : MonoBehaviour
         // Aキーで左のパスに移動
         if (Input.GetKeyDown(KeyCode.A))
         {
+            // 移動(回避)した時の音
+            //soundController.DodgeSE();
             // 左入力キーを設定
             moveDir = PlayerMoveData.MoveDir.Left;
             ChangeMove();
@@ -35,6 +45,8 @@ public class PlayerMove : MonoBehaviour
         else
         if (Input.GetKeyDown(KeyCode.D))
         {
+            // 移動(回避)した時の音
+            //soundController.DodgeSE();
             // 右入力キーを設定
             moveDir = PlayerMoveData.MoveDir.Right;
             ChangeMove();

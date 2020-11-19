@@ -26,12 +26,17 @@ public class PlayerParryAction : MonoBehaviour
     private float parryJudgeTime = 0.0f;
     // パリィを行ているか
     private bool isParryActive = false;
-
-
+    //サウンドマネージャー
+    [SerializeField]
+    private GameObject soundManager;
+    // サウンドコントローラー
+    private SoundController soundController;
     // Start is called before the first frame update
     void Start()
     {
         parryObj.SetActive(false);
+        // サウンドコントローラーを取得
+        soundController = soundManager.GetComponent<SoundController>();
     }
 
     // Update is called once per frame
@@ -39,7 +44,12 @@ public class PlayerParryAction : MonoBehaviour
     {
         // 左右クリックでパリィを行う
         if (Input.GetMouseButtonDown(1) || Input.GetMouseButtonDown(0))
+        {
+            // パリィを発動した時の音
+            /*     */
             Parry();
+        }
+
 
         // パリィを行っていたら判定用タイマーを増加
         if (isParryActive)
@@ -92,12 +102,26 @@ public class PlayerParryAction : MonoBehaviour
     private void ParryJudgement()
     {
         if (parryJudgeTime <= goodJudgeTime)
+        {
+            // "good"の音
+            soundController.GoodSE();
             Debug.Log("Good");
+        }
+
         else
         if (parryJudgeTime <= perfectJudgeTime)
+        {
+            // "perfect"の音
+            soundController.PerfectSE();
             Debug.Log("Perfect");
+        }
+
         else
         if (parryJudgeTime <= fastJudgeTime)
+        {
+            // "fast"の音
             Debug.Log("Fast");
+        }
+
     }
 }

@@ -3,82 +3,79 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class  Uiscript: MonoBehaviour
+public class Uiscript : MonoBehaviour
 {
-    
-    //良判定のテキスト
+    // 判定数テキスト格納用
+    [NamedArrayAttribute(new string[] { "Great Text", "Good Text", "Miss Text" })]
     [SerializeField]
-    Text greatText;
+    private Text[] decisionCountTexts = new Text[3];
 
-    //可判定のテキスト
+    // トータルスコアテキスト
     [SerializeField]
-    Text goodText;
-
-    //ミス判定のテキスト
-    [SerializeField]
-    Text missText;
-
-    //トータルスコアのテキスト
-    [SerializeField]
-    Text totalText;
+    private Text scoreCountText = null;
 
     //スコア
     private int[] scorePoint = new int[(int)GameDataManager.SCORE_TYPE.ALL_TYPE];
-
-
-    //トータルスコア
-    private int totalScore = 0;
-
     //判定の数
     private int[] decisionNum = new int[(int)GameDataManager.SCORE_TYPE.ALL_TYPE];
-
-
+    //トータルスコア
+    private int totalScore = 0;
 
     // Start is called before the first frame update
     void Start()
     {
-        // スコア値,判定の数初期化
+        // スコア、判定数初期化
         for (int i = 0; i < (int)GameDataManager.SCORE_TYPE.ALL_TYPE; i++)
         {
-           this. scorePoint[i] = 0;
-            decisionNum[i] = 0;
+            scorePoint[i] = GameDataManager.GetScore(i);
+            decisionNum[i] = GameDataManager.GetDecisionNum(i);
         }
     }
 
     // Update is called once per frame
     void Update()
     {
+        // スコア計算
+        CalcScore();
 
 
-        //GameDataMnagerからデータを持ってくる
-        for(int i=0;i<(int)GameDataManager.SCORE_TYPE.ALL_TYPE;i++)
-        {
-            scorePoint[i] = GameDataManager.GetScore(i);
-            decisionNum[i] = GameDataManager.GetDecisionNum(i);
-        }
+        //各スコアの表示
+        //greatText.text = "Great x" + decisionNum[0].ToString();
+        //goodText.text = "Good x" + decisionNum[1].ToString();
+        //missText.text = "Miss x" + decisionNum[2].ToString();
+        //totalText.text = "TotalScore" + totalScore.ToString();
 
+    }
 
-        
-        //トータルスコアの計算
+    // スコア計算
+    private void CalcScore()
+    {
         for (int i = 0; i < (int)GameDataManager.SCORE_TYPE.ALL_TYPE; i++)
         {
+            // スコアの計算
             this.totalScore += scorePoint[i] * decisionNum[i];
-                        
-            if(totalScore < 0)
+
+            // スコアがマイナスにならないように
+            if (totalScore < 0)
             {
                 totalScore = 0;
             }
-
-           
         }
+    }
 
+    // 各テキストの表示
+    private void DrawText()
+    {
+        for (int i = 0; i < this.decisionCountTexts.Length; i++)
+        {
+            this.decisionCountTexts[i].text = this.decisionNum[i].ToString() + "回";
+        }
+        this.scoreCountText.text = this.totalScore.ToString() + "pt";
+    }
 
-           
-     //各スコアの表示
-     greatText.text = "Great x" + decisionNum[0].ToString();
-     goodText.text  = "Good x"  + decisionNum[1].ToString();
-     missText.text  = "Miss x"  + decisionNum[2].ToString();
-     totalText.text = "TotalScore" + totalScore.ToString();     
-        
+    // カウントアップ
+    private void CountUp()
+    {
+
     }
 }

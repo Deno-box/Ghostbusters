@@ -15,20 +15,12 @@ public class PlayerIdleState : PlayerState
     {
         // TODO : 左右キー判定やマウスの左右判定はこのクラスで判定しているため、後で変更しておく
         
-        // マウスクリックでパリィ状態に遷移
-        if (Input.GetMouseButtonDown(1))
-        {
-            this.GetComponent<PlayerParryState>().rotDir = -1.0f;
+        // スペースキーでパリィ状態に遷移
+        if (Input.GetKeyDown(KeyCode.Space))
             this.state = PlayerStateController.PlayerStateEnum.Parry;
-        }
-        else if(Input.GetMouseButtonDown(0))
-        {
-            this.GetComponent<PlayerParryState>().rotDir = 1.0f;
-            this.state = PlayerStateController.PlayerStateEnum.Parry;
-        }
         // Aキーで左のパスに移動
         else
-        if (Input.GetKeyDown(KeyCode.A))
+        if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
             // 左入力キーを設定
             this.GetComponent<PlayerMoveLRState>().moveDir = PlayerMoveData.MoveDir.Left;
@@ -36,7 +28,7 @@ public class PlayerIdleState : PlayerState
         }
         // Dキーで左のパスに移動
         else
-        if (Input.GetKeyDown(KeyCode.D))
+        if (Input.GetKeyDown(KeyCode.RightArrow))
         {
             // 右入力キーを設定
             this.GetComponent<PlayerMoveLRState>().moveDir = PlayerMoveData.MoveDir.Right;

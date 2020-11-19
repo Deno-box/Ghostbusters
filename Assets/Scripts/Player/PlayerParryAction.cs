@@ -13,7 +13,7 @@ public class PlayerParryAction : MonoBehaviour
     private float fastJudgeTime = 0.0f;
     // perfect判定
     [SerializeField]
-    private float perfectJudgeTime = 0.0f;
+    private float greatJudgeTime = 0.0f;
     // good判定
     [SerializeField]
     private float goodJudgeTime = 0.0f;
@@ -38,7 +38,9 @@ public class PlayerParryAction : MonoBehaviour
     void Update()
     {
         // 左右クリックでパリィを行う
-        if (Input.GetMouseButtonDown(1) || Input.GetMouseButtonDown(0))
+        if (isParryActive == false      &&
+            Input.GetMouseButtonDown(1) || 
+            Input.GetMouseButtonDown(0))
             Parry();
 
         // パリィを行っていたら判定用タイマーを増加
@@ -59,11 +61,9 @@ public class PlayerParryAction : MonoBehaviour
         parryObj.SetActive(true);
         // 判定用のタイマーをリセット
         parryJudgeTime = 0.0f;
-        // TODO :: コメントを分かりやすく編集しておく
         // パリィアクティブ状態に移行
         isParryActive = true;
 
-        
         // parryActimeTimeの間処理を停止する
         yield return new WaitForSeconds(parryActiveTime);
 
@@ -88,16 +88,16 @@ public class PlayerParryAction : MonoBehaviour
         ParryJudgement();
     }
 
-    // perfect,good,bad判定を取る
+    // great,good判定を取る
     private void ParryJudgement()
     {
         if (parryJudgeTime <= goodJudgeTime)
-            Debug.Log("Good");
+            GameDataManager.AddDecisionNum(GameDataManager.SCORE_TYPE.GOOD);
         else
-        if (parryJudgeTime <= perfectJudgeTime)
-            Debug.Log("Perfect");
+        if (parryJudgeTime <= greatJudgeTime)
+            GameDataManager.AddDecisionNum(GameDataManager.SCORE_TYPE.GREAT);
         else
         if (parryJudgeTime <= fastJudgeTime)
-            Debug.Log("Fast");
+            GameDataManager.AddDecisionNum(GameDataManager.SCORE_TYPE.GOOD);
     }
 }

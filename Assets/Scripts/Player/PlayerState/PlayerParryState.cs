@@ -107,13 +107,13 @@ public class PlayerParryState : PlayerState
     private void ParryJudgement()
     {
         if (parryJudgeTime <= goodJudgeTime)
-            GameDataManager.AddDecisionNum(GameDataManager.SCORE_TYPE.GOOD);
+            GameDataManager.AddDecisionNum((int)GameDataManager.SCORE_TYPE.GOOD);
         else
         if (parryJudgeTime <= greatJudgeTime)
-            GameDataManager.AddDecisionNum(GameDataManager.SCORE_TYPE.GREAT);
+            GameDataManager.AddDecisionNum((int)GameDataManager.SCORE_TYPE.GREAT);
         else
         if (parryJudgeTime <= fastJudgeTime)
-            GameDataManager.AddDecisionNum(GameDataManager.SCORE_TYPE.GOOD);
+            GameDataManager.AddDecisionNum((int)GameDataManager.SCORE_TYPE.GOOD);
     }
 
     // 回転させる

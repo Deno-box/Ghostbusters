@@ -13,7 +13,7 @@ public class PlayerReceiveDamage : MonoBehaviour
     {
         if (other.tag == "EnemyBullet")
         {
-            GameDataManager.AddDecisionNum(GameDataManager.SCORE_TYPE.MISS);
+            GameDataManager.AddDecisionNum((int)GameDataManager.SCORE_TYPE.MISS);
         }
     }
 }

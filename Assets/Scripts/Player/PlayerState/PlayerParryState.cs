@@ -28,7 +28,7 @@ public class PlayerParryState : PlayerState
     private void Awake()
     {
         this.playerStatus = Resources.Load("PlayerStatus") as PlayerStatusData;
-        this.parrysuccessFx = Resources.Load("FX/CFX_Poof") as GameObject;
+        this.parrysuccessFx = Resources.Load("FX/ParrySuccess") as GameObject;
 
         this.parryObj = Instantiate(Resources.Load("Prefabs/Player/PlayerParryJudgement") as GameObject, this.transform);
         parryObj.SetActive(false);
@@ -107,7 +107,8 @@ public class PlayerParryState : PlayerState
         // アイドル状態に遷移
         //this.state = PlayerStateController.PlayerStateEnum.Idle;
 
-        //Instantiate(parrysuccessFx, this.transform);
+        GameObject obj = Instantiate(parrysuccessFx, this.transform);
+        obj.transform.localPosition = new Vector3(0.0f, 0.0f, 4.0f);
         ParryJudgement();
     }
 

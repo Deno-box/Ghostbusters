@@ -30,9 +30,16 @@ public class TitleController : MonoBehaviour
     // 選択中
     private int selecting = (int)TextType.NEW_GAME;
 
+    [SerializeField]
+    Canvas canvas = null;
+
+    private Fadecontroller fadeController = null;
+
+
     // Start is called before the first frame update
     void Start()
     {
+        this.fadeController = this.canvas.GetComponent<Fadecontroller>();
     }
 
     // Update is called once per frame
@@ -82,7 +89,6 @@ public class TitleController : MonoBehaviour
     {
         this.arrowImage[0].rectTransform.position = new Vector3(_rect.position.x + _offsetX, _rect.position.y, _rect.position.z);
         this.arrowImage[1].rectTransform.position = new Vector3(_rect.position.x - _offsetX, _rect.position.y, _rect.position.z);
-
     }
 
     // モード選択
@@ -96,7 +102,7 @@ public class TitleController : MonoBehaviour
                 // ゲームスタート
                 case (int)TextType.NEW_GAME:
                     // プレイシーンへ遷移
-                    SceneManager.LoadScene(1);
+                    fadeController.fadeOutStart(0, 0, 0, 0, "PlayerMoveTestScene");
                     break;
                 // 続きから
                 case (int)TextType.CONTINUE:
@@ -106,6 +112,8 @@ public class TitleController : MonoBehaviour
                     break;
             }
         }
+
+
     }
 
     // 画像を動かす

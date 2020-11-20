@@ -48,7 +48,7 @@ public class PlayerMoveLRState : PlayerState
         isMove = false;
         this.moveTimer = 0.0f;
 
-        if (!ChangeMove()) { }
+        isMove = ChangeMove();
 
     }
 
@@ -134,7 +134,7 @@ public class PlayerMoveLRState : PlayerState
 
                 // 移動を開始
                 ChangeMovePath(data.changePath, changePos);
-
+                Debug.Log(data.changePath.name);
                 return true;
 
                 //break;

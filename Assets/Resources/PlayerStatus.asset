@@ -18,4 +18,4 @@ MonoBehaviour:
   greatJudgeDistance: 0
   damageInvincibleTime: 1
   fallJudgeRate: 0.99
-  alertRate: 0.8
+  alertDistance: 200

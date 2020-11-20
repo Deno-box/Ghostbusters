@@ -19,6 +19,5 @@ public class PlayerStatusData : ScriptableObject
     [Range(0.0f,1.0f)]
     public float fallJudgeRate;
     // 警告を出すパスの長さの割合
-    [Range(0.0f,1.0f)]
-    public float alertRate;
+    public float alertDistance;
 }

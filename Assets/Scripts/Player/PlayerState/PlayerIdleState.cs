@@ -74,7 +74,7 @@ public class PlayerIdleState : PlayerState
         if (this.pathLength * this.playerStatus.fallJudgeRate <= this.myCart.m_Position)
             this.state = PlayerStateController.PlayerStateEnum.Fall;
         // 警告ゾーンに入るとUIを有効化
-        if (this.pathLength * this.playerStatus.alertRate <= this.myCart.m_Position)
+        if (this.pathLength - this.playerStatus.alertDistance <= this.myCart.m_Position)
         {
             alertImage.enabled = true;
         }

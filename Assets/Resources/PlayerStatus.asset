@@ -16,4 +16,4 @@ MonoBehaviour:
   parryActiveTime: 0.3
   goodJudgeDistance: 0.3
   greatJudgeDistance: 0
-  damageInvincibleTime: 2
+  damageInvincibleTime: 0.7

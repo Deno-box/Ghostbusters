@@ -23,7 +23,7 @@ public class PlayerParryState : PlayerState
     private float aniamtionTimer;
     private int rotDir = 1;
 
-    private GameObject rotObj=null;
+    private GameObject playerModel=null;
 
     private void Awake()
     {
@@ -34,6 +34,9 @@ public class PlayerParryState : PlayerState
         parryObj.SetActive(false);
 
         this.parryObj.transform.localPosition = parryObjOffset;
+
+
+        playerModel = this.transform.GetChild(3).gameObject;
     }
 
     // 初期化処理
@@ -52,10 +55,6 @@ public class PlayerParryState : PlayerState
             this.rotDir = 1;
 
         aniamtionTimer = 0.0f;
-
-
-        if (!rotObj)
-            rotObj = this.transform.GetChild(3).gameObject;
     }
 
     // 実行処理
@@ -132,6 +131,6 @@ public class PlayerParryState : PlayerState
     {
         float rate = 360.0f / this.playerStatus.parryActiveTime;
         aniamtionTimer += Time.deltaTime;
-        rotObj.transform.localRotation = Quaternion.Euler(-90.0f, 0.0f, aniamtionTimer * rate * rotDir);
+        playerModel.transform.localRotation = Quaternion.Euler(-90.0f, 0.0f, aniamtionTimer * rate * rotDir);
     }
 }

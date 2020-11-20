@@ -15,6 +15,8 @@ public class PlayerParryState : PlayerState
     private float parryJudgeTime = 0.0f;
     // パリィを行ているか
     private bool isParryActive = false;
+    // パリィ成功時のエフェクト
+    private GameObject parrysuccessFx;
 
 
     // アニメーション用タイマー
@@ -26,6 +28,7 @@ public class PlayerParryState : PlayerState
     private void Awake()
     {
         this.playerStatus = Resources.Load("PlayerStatus") as PlayerStatusData;
+        this.parrysuccessFx = Resources.Load("FX/CFX_Poof") as GameObject;
 
         this.parryObj = Instantiate(Resources.Load("Prefabs/Player/PlayerParryJudgement") as GameObject, this.transform);
         parryObj.SetActive(false);
@@ -110,6 +113,7 @@ public class PlayerParryState : PlayerState
         // アイドル状態に遷移
         //this.state = PlayerStateController.PlayerStateEnum.Idle;
 
+        //Instantiate(parrysuccessFx, this.transform);
         ParryJudgement();
     }
 

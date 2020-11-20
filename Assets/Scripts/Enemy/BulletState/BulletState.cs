@@ -11,7 +11,7 @@ public class BulletState : MonoBehaviour
     // 初期化処理
     public virtual void StateInitialize() { }
     // 更新処理
-    public virtual void StateUpdate(){ }
+    public virtual void Execute(){ }
     // OnTrigger時の処理
     public virtual void StateOnTriggerEnter(Collider _other) { }
 }

@@ -20,7 +20,7 @@ public class EnemyBulletState : BulletState
     }
 
     // 更新処理
-    public override void StateUpdate()
+    public override void Execute()
     {
         // 一定時間経過後、自身を削除する
         counter += Time.deltaTime;

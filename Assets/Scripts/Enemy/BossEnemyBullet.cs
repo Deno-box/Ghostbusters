@@ -23,8 +23,8 @@ public class BossEnemyBullet : MonoBehaviour
         // ステートを初期化
         this.gameObject.AddComponent<EnemyBulletState>();
         this.gameObject.AddComponent<EnemyBulletParryState>();
-        stateList[0] = GetComponent<EnemyBulletState>();
-        stateList[1] = GetComponent<EnemyBulletParryState>();
+        stateList[(int)BulletStateEnum.EnemyBullet] = GetComponent<EnemyBulletState>();
+        stateList[(int)BulletStateEnum.Parry] = GetComponent<EnemyBulletParryState>();
 
         activeState = stateList[0];
     }
@@ -41,7 +41,7 @@ public class BossEnemyBullet : MonoBehaviour
         }
 
         // 現在アクティブなステートを更新
-        this.activeState.StateUpdate();
+        this.activeState.Execute();
     }
     
     private void OnTriggerEnter(Collider _other)

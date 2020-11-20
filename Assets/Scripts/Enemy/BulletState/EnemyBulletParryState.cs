@@ -8,7 +8,7 @@ public class EnemyBulletParryState : BulletState
     // ボスのトランスフォーム
     private Transform bossTrs = null;
     // 跳ね返るときの弾の速度
-    private float moveSpeed = 250.0f;
+    private float moveSpeed = 150.0f;
 
     // ボスにダメージを与えたときのFX
     private GameObject damageFX;
@@ -26,12 +26,19 @@ public class EnemyBulletParryState : BulletState
         // ターゲットであるボスを検索
 
         // ボスが消えると参照できない
-        bossTrs = GameObject.FindWithTag("BossEnemy").transform;
+        if (GameObject.FindWithTag("BossEnemy"))
+            bossTrs = GameObject.FindWithTag("BossEnemy").transform;
+
+        state = BossEnemyBullet.BulletStateEnum.Parry;
     }
 
     // 更新処理
-    public override void StateUpdate()
+    public override void Execute()
     {
+        // TOdo:: 絶対やめたほうがいい
+        if (!GameObject.FindWithTag("BossEnemy"))
+            Destroy(this.gameObject);
+
         // 移動先を計算
         Vector3 movePos = Vector3.MoveTowards(this.transform.position, this.bossTrs.position, this.moveSpeed * Time.deltaTime);
         this.transform.position = movePos;

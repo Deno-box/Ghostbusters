@@ -49,10 +49,10 @@ public class PlayerMoveLRState : PlayerState
             this.nextPosObj.transform.parent = this.transform;
         }
 
+        isMove = false;
         this.moveTimer = 0.0f;
 
         if (!ChangeMove()) { }
-
 
     }
 
@@ -78,8 +78,10 @@ public class PlayerMoveLRState : PlayerState
             this.transform.position = Vector3.Lerp(this.transform.position, nextPosObj.transform.position, moveTimer *(1- this.playerStatus.moveTime));
             float rate = 360.0f / this.playerStatus.moveTime;
             playerModel.transform.rotation = Quaternion.Euler(new Vector3(moveTimer * rate * dir - 90.0f, -90.0f,90.0f));
-
         }
+        else
+            state = PlayerStateController.PlayerStateEnum.Idle;
+
     }
 
     // 終了処理

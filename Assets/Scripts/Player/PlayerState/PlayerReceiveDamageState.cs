@@ -36,9 +36,6 @@ public class PlayerReceiveDamageState : PlayerState
         this.damageTimer += Time.deltaTime;
         //if (this.damageTimer >= playerStatus.damageInvincibleTime)
         //    this.state = PlayerStateController.PlayerStateEnum.Idle;
-
-
-        Debug.Log("Damage");
     }
 
     // 終了処理

@@ -18,12 +18,8 @@ public class TestResultSceneController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // スペースキーを押す or 一定時間経過後タイトルに遷移する
+        // スペースキーを押すとタイトルに遷移する
         if(Input.GetKeyDown(KeyCode.Space))
-            this.fadeController.fadeOutStart(0, 0, 0, 0, "TitleScene");
-
-        this.timer += Time.deltaTime;
-        if(this.timer >= this.timerMax)
             this.fadeController.fadeOutStart(0, 0, 0, 0, "TitleScene");
     }
 }

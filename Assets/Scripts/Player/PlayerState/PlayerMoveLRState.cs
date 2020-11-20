@@ -27,27 +27,23 @@ public class PlayerMoveLRState : PlayerState
     private void Awake()
     {
         this.playerStatus = Resources.Load("PlayerStatus") as PlayerStatusData;
+        playerMoveData = Resources.Load("PlayerMoveData/TestScene/TestStagePlayerMoveData") as PlayerMoveDataList;
 
         playerModel = this.transform.GetChild(3).gameObject;
+
+        myCart = this.GetComponent<CinemachineDollyCart>();
+
+        this.nextPosObj = new GameObject();
+        this.nextPosObj.AddComponent<CinemachineDollyCart>();
+        this.nextPosObj.transform.parent = this.transform;
     }
 
     // 初期化処理
     public override void Initialize()
     {
         this.state = PlayerStateController.PlayerStateEnum.MoveLR;
-        if (!this.myCart)
-            myCart = this.GetComponent<CinemachineDollyCart>();
         // TODO : このデータの読み込みを変更する(Stage1,Stage2のようなデータをどこかに保管しておく)
         if (!this.playerMoveData)
-            playerMoveData = Resources.Load("PlayerMoveData/TestScene/TestStagePlayerMoveData") as PlayerMoveDataList;
-        playerModel = this.transform.GetChild(3).gameObject;
-
-        if (!this.nextPosObj)
-        {
-            this.nextPosObj = new GameObject();
-            this.nextPosObj.AddComponent<CinemachineDollyCart>();
-            this.nextPosObj.transform.parent = this.transform;
-        }
 
         isMove = false;
         this.moveTimer = 0.0f;

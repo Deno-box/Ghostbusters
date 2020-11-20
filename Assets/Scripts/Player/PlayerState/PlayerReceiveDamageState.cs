@@ -16,10 +16,12 @@ public class PlayerReceiveDamageState : PlayerState
     
 
     private GameObject playerModel;
+    private GameObject parrysuccessFx;
 
     private void Awake()
     {
         this.playerStatus = Resources.Load("PlayerStatus") as PlayerStatusData;
+        this.parrysuccessFx = Resources.Load("FX/PlayerReceiveDamage") as GameObject;
         playerModel = this.transform.GetChild(3).gameObject;
     }
 
@@ -30,6 +32,7 @@ public class PlayerReceiveDamageState : PlayerState
         damageTimer = 0.0f;
         this.isBlink = true;
 
+        GameObject obj = Instantiate(parrysuccessFx, this.transform);
         StartCoroutine("BlinkRenderer");
     }
 

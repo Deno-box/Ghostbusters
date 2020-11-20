@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
 
+
+using UnityEngine.UI;
+
 public class PlayerIdleState : PlayerState
 {
     // プレイヤーのステータスデータ
@@ -14,9 +17,15 @@ public class PlayerIdleState : PlayerState
     private CinemachineDollyCart myCart = null;
     private float pathLength = 0.0f;
 
+
+    private Image alertImage;
+
     private void Awake()
     {
         this.playerStatus = Resources.Load("PlayerStatus") as PlayerStatusData;
+
+        alertImage = GameObject.Find("Alert").GetComponent<Image>();
+        alertImage.enabled = false;
     }
 
     // 初期化処理
@@ -40,7 +49,7 @@ public class PlayerIdleState : PlayerState
     public override void Execute()
     {
         // TODO : 左右キー判定やマウスの左右判定はこのクラスで判定しているため、後で変更しておく
-
+        //Alert
         // スペースキーでパリィ状態に遷移
         if (Input.GetKeyDown(KeyCode.Space))
             this.state = PlayerStateController.PlayerStateEnum.Parry;
@@ -64,11 +73,19 @@ public class PlayerIdleState : PlayerState
         // レーンの端まで到着すると落下状態に遷移
         if (this.pathLength * this.playerStatus.fallJudgeRate <= this.myCart.m_Position)
             this.state = PlayerStateController.PlayerStateEnum.Fall;
+        // 警告ゾーンに入るとUIを有効化
+        if (this.pathLength * this.playerStatus.alertRate <= this.myCart.m_Position)
+        {
+            alertImage.enabled = true;
+        }
+        else
+            alertImage.enabled = false;
     }
     // 終了処理
     public override void Exit()
     {
         this.damageObj.SetActive(false);
+        alertImage.enabled = false;
     }
 
     // 被ダメージ状態に遷移

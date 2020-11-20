@@ -7,10 +7,12 @@ public class ParryJudgeObj : MonoBehaviour
     // 自身の親オブジェクト
     private PlayerParryState player = null;
 
+    private GameObject parryFx;
+
     private void Start()
     {
-        if (player == null)
-            player = this.transform.parent.GetComponent<PlayerParryState>();
+        parryFx = Resources.Load("CFX_Poof") as GameObject;
+        player = this.transform.parent.GetComponent<PlayerParryState>();
     }
 
     // 敵に衝突したらプレイヤーのパリィアクションに報告を行う
@@ -18,6 +20,9 @@ public class ParryJudgeObj : MonoBehaviour
     {
         // プレイヤーに衝突の報告を行う
         if (_other.tag == "EnemyBullet")
+        {
             player.ParryJudge();
+            Instantiate(parryFx, this.transform.position, Quaternion.identity);
+        }
     }
 }

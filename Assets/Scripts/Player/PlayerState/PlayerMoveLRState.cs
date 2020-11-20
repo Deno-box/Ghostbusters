@@ -5,13 +5,15 @@ using Cinemachine;
 
 public class PlayerMoveLRState : PlayerState
 {
+    // プレイヤーのステータスデータ
+    private PlayerStatusData playerStatus = null;
+
     // 追従するオブジェクト
     private CinemachineDollyCart myCart = null;
     // TODO : publicになってしまっている　要変更
     // 左右どちらのキーが押されたか
     public PlayerMoveData.MoveDir moveDir = PlayerMoveData.MoveDir.None;
     // 移動時間
-    private float moveTimerMax = 0.5f;
     private float moveTimer    = 0.0f;
 
     // 移動可能範囲のリスト
@@ -19,6 +21,13 @@ public class PlayerMoveLRState : PlayerState
 
     private GameObject nextPosObj = null;
     private bool isMove = false;
+    private GameObject rotObj = null;
+
+
+    private void Awake()
+    {
+        this.playerStatus = Resources.Load("PlayerStatus") as PlayerStatusData;
+    }
 
     // 初期化処理
     public override void Initialize()
@@ -30,18 +39,18 @@ public class PlayerMoveLRState : PlayerState
         if (!this.playerMoveData)
             playerMoveData = Resources.Load("PlayerMoveData/TestScene/TestStagePlayerMoveData") as PlayerMoveDataList;
 
-        if(!this.nextPosObj)
+        if(!rotObj)
+            rotObj = this.transform.GetChild(3).gameObject;
+
+        if (!this.nextPosObj)
         {
             this.nextPosObj = new GameObject();
             this.nextPosObj.AddComponent<CinemachineDollyCart>();
             this.nextPosObj.transform.parent = this.transform;
         }
-        //moveDir = PlayerMoveData.MoveDir.None;
 
         this.moveTimer = 0.0f;
 
-        this.isMove = false;
-        //moveDir = PlayerMoveData.MoveDir.Left;
         if (!ChangeMove()) { }
 
 
@@ -53,8 +62,11 @@ public class PlayerMoveLRState : PlayerState
         ////Debug.Log("MoveLR");
 
         this.moveTimer += Time.deltaTime;
-        if(moveTimer>=moveTimerMax)
+        if(moveTimer>= this.playerStatus.moveTime)
             state = PlayerStateController.PlayerStateEnum.Idle;
+
+        //if (moveTimer >= moveTimerMax*0.8f && Input.GetKeyDown(KeyCode.Space))
+        //    this.state = PlayerStateController.PlayerStateEnum.Parry;
 
         if(this.isMove)
         {
@@ -63,10 +75,9 @@ public class PlayerMoveLRState : PlayerState
             if (moveDir == PlayerMoveData.MoveDir.Right)
                 dir = -1.0f;
 
-            this.transform.position = Vector3.Lerp(this.transform.position, nextPosObj.transform.position, moveTimer * moveTimerMax);
-            float rate = 360.0f / moveTimerMax;
-            GameObject obj = this.transform.GetChild(3).gameObject;
-            obj.transform.rotation = Quaternion.Euler(new Vector3(moveTimer * rate * dir - 90.0f, -90.0f,90.0f));
+            this.transform.position = Vector3.Lerp(this.transform.position, nextPosObj.transform.position, moveTimer *(1- this.playerStatus.moveTime));
+            float rate = 360.0f / this.playerStatus.moveTime;
+            rotObj.transform.rotation = Quaternion.Euler(new Vector3(moveTimer * rate * dir - 90.0f, -90.0f,90.0f));
 
         }
     }
@@ -80,8 +91,7 @@ public class PlayerMoveLRState : PlayerState
             myCart.m_Path = nextPosObj.GetComponent<CinemachineDollyCart>().m_Path;
             myCart.m_Position = nextPosObj.GetComponent<CinemachineDollyCart>().m_Position;
             myCart.enabled = true;
-            GameObject obj = this.transform.GetChild(3).gameObject;
-            obj.transform.rotation = Quaternion.Euler(new Vector3(-90.0f, 0.0f, 0.0f));
+            rotObj.transform.rotation = Quaternion.Euler(new Vector3(-90.0f, 0.0f, 0.0f));
         }
     }
 
@@ -126,7 +136,7 @@ public class PlayerMoveLRState : PlayerState
                 float changePos = changePosMax * nowPosPer + data.changePosMin;
 
                 float speed = this.GetComponent<CinemachineDollyCart>().m_Speed;
-                changePos +=  moveTimerMax * speed;
+                changePos += this.playerStatus.moveTime * speed;
 
 
                 // 移動を開始

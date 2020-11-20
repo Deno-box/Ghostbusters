@@ -4,9 +4,21 @@ using UnityEngine;
 
 public class PlayerIdleState : PlayerState
 {
+    // PlayerStatus
+    private GameObject damageObj = null;
+    private Vector3 parryObjOffset = new Vector3(0.0f,1.0f, -3.0f);
+
     // 初期化処理
     public override void Initialize()
     {
+        // パリィ用オブジェクトを生成
+        if (this.damageObj == null)
+        {
+            this.damageObj = Instantiate(Resources.Load("Prefabs/Player/PlayerDamageJudgement") as GameObject, this.transform);
+            this.damageObj.transform.localPosition = parryObjOffset;
+        }
+        this.damageObj.SetActive(true);
+
         this.state = PlayerStateController.PlayerStateEnum.Idle;
     }
 
@@ -39,7 +51,7 @@ public class PlayerIdleState : PlayerState
     // 終了処理
     public override void Exit()
     {
-
+        this.damageObj.SetActive(false);
     }
 
     // OnTrigger処理

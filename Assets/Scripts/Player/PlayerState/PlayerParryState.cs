@@ -4,14 +4,8 @@ using UnityEngine;
 
 public class PlayerParryState : PlayerState
 {
-    // パリィの発生時間
-    private float parryActiveTime = 0.4f;
-    // fast判定
-    private float fastJudgeTime   = 0.4f;
-    // greatt判定
-    private float greatJudgeTime  = 0.0f;
-    // good判定
-    private float goodJudgeTime   = 0.2f;
+    // プレイヤーのステータスデータ
+    private PlayerStatusData playerStatus = null;
 
     // パリィ判定を行うオブジェクト
     private GameObject parryObj = null;
@@ -27,17 +21,23 @@ public class PlayerParryState : PlayerState
     private float aniamtionTimer;
     private int rotDir = 1;
 
+    private GameObject rotObj=null;
+
+    private void Awake()
+    {
+        this.playerStatus = Resources.Load("PlayerStatus") as PlayerStatusData;
+
+        this.parryObj = Instantiate(Resources.Load("Prefabs/Player/PlayerParryJudgement") as GameObject, this.transform);
+        parryObj.SetActive(false);
+
+        this.parryObj.transform.localPosition = parryObjOffset;
+    }
 
     // 初期化処理
     public override void Initialize()
     {
-        // パリィ用オブジェクトを生成
-        if (parryObj == null)
-        {
-            this.parryObj = Instantiate(Resources.Load("Prefabs/Player/PlayerParryJudgement") as GameObject,this.transform);
-            this.parryObj.transform.localPosition = parryObjOffset;
-        }
         parryObj.SetActive(false);
+
         isParryActive = false;
         parryJudgeTime = 0.0f;
         this.state = PlayerStateController.PlayerStateEnum.Parry;
@@ -49,6 +49,10 @@ public class PlayerParryState : PlayerState
             this.rotDir = 1;
 
         aniamtionTimer = 0.0f;
+
+
+        if (!rotObj)
+            rotObj = this.transform.GetChild(3).gameObject;
     }
 
     // 実行処理
@@ -93,10 +97,10 @@ public class PlayerParryState : PlayerState
         isParryActive = true;
 
         // parryActimeTimeの間処理を停止する
-        yield return new WaitForSeconds(parryActiveTime);
+        yield return new WaitForSeconds(this.playerStatus.parryActiveTime);
 
         // 生成してから一定時間経過していたらアイドル状態に遷移
-        if (parryActiveTime <= parryJudgeTime)
+        if (this.playerStatus.parryActiveTime <= parryJudgeTime)
             this.state = PlayerStateController.PlayerStateEnum.Idle;
     }
 
@@ -112,22 +116,18 @@ public class PlayerParryState : PlayerState
     // great,good判定を取る
     private void ParryJudgement()
     {
-        if (parryJudgeTime <= goodJudgeTime)
+        if (parryJudgeTime <= this.playerStatus.goodJudgeDistance)
             GameDataManager.AddDecisionNum((int)GameDataManager.SCORE_TYPE.GOOD);
         else
-        if (parryJudgeTime <= greatJudgeTime)
+        if (parryJudgeTime <= this.playerStatus.greatJudgeDistance)
             GameDataManager.AddDecisionNum((int)GameDataManager.SCORE_TYPE.GREAT);
-        else
-        if (parryJudgeTime <= fastJudgeTime)
-            GameDataManager.AddDecisionNum((int)GameDataManager.SCORE_TYPE.GOOD);
     }
 
     // 回転させる
     void PlayerRotation()
     {
-        float rate = 360.0f / parryActiveTime;
+        float rate = 360.0f / this.playerStatus.parryActiveTime;
         aniamtionTimer += Time.deltaTime;
-        GameObject obj = this.transform.GetChild(3).gameObject;
-        obj.transform.localRotation = Quaternion.Euler(-90.0f, 0.0f, aniamtionTimer * rate * rotDir);
+        rotObj.transform.localRotation = Quaternion.Euler(-90.0f, 0.0f, aniamtionTimer * rate * rotDir);
     }
 }

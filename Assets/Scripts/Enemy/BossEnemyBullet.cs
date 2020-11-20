@@ -13,6 +13,7 @@ public class BossEnemyBullet : MonoBehaviour
 
     // 自身のステート
     private BulletStateEnum lastStateEnum = BulletStateEnum.EnemyBullet;
+    [SerializeField]
     private BulletState activeState;
     private BulletState[] stateList = new BulletState[2];
 

@@ -9,8 +9,7 @@ public class ParryJudgeObj : MonoBehaviour
 
     private void Start()
     {
-        if (player == null)
-            player = this.transform.parent.GetComponent<PlayerParryState>();
+        player = this.transform.parent.GetComponent<PlayerParryState>();
     }
 
     // 敵に衝突したらプレイヤーのパリィアクションに報告を行う

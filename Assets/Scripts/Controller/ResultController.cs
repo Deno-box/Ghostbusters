@@ -18,7 +18,7 @@ public class ResultController : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.Space))
         {
-            fadecontroller.fadeOutStart(0, 0, 0, 0, "Title");
+            fadecontroller.fadeOutStart(0, 0, 0, 0, "TitleScene");
         }
     }
 }

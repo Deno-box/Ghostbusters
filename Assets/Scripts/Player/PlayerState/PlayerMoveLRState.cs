@@ -21,12 +21,14 @@ public class PlayerMoveLRState : PlayerState
 
     private GameObject nextPosObj = null;
     private bool isMove = false;
-    private GameObject rotObj = null;
+    private GameObject playerModel = null;
 
 
     private void Awake()
     {
         this.playerStatus = Resources.Load("PlayerStatus") as PlayerStatusData;
+
+        playerModel = this.transform.GetChild(3).gameObject;
     }
 
     // 初期化処理
@@ -38,9 +40,7 @@ public class PlayerMoveLRState : PlayerState
         // TODO : このデータの読み込みを変更する(Stage1,Stage2のようなデータをどこかに保管しておく)
         if (!this.playerMoveData)
             playerMoveData = Resources.Load("PlayerMoveData/TestScene/TestStagePlayerMoveData") as PlayerMoveDataList;
-
-        if(!rotObj)
-            rotObj = this.transform.GetChild(3).gameObject;
+        playerModel = this.transform.GetChild(3).gameObject;
 
         if (!this.nextPosObj)
         {
@@ -49,10 +49,10 @@ public class PlayerMoveLRState : PlayerState
             this.nextPosObj.transform.parent = this.transform;
         }
 
+        isMove = false;
         this.moveTimer = 0.0f;
 
         if (!ChangeMove()) { }
-
 
     }
 
@@ -77,9 +77,11 @@ public class PlayerMoveLRState : PlayerState
 
             this.transform.position = Vector3.Lerp(this.transform.position, nextPosObj.transform.position, moveTimer *(1- this.playerStatus.moveTime));
             float rate = 360.0f / this.playerStatus.moveTime;
-            rotObj.transform.rotation = Quaternion.Euler(new Vector3(moveTimer * rate * dir - 90.0f, -90.0f,90.0f));
-
+            playerModel.transform.rotation = Quaternion.Euler(new Vector3(moveTimer * rate * dir - 90.0f, -90.0f,90.0f));
         }
+        else
+            state = PlayerStateController.PlayerStateEnum.Idle;
+
     }
 
     // 終了処理
@@ -91,7 +93,7 @@ public class PlayerMoveLRState : PlayerState
             myCart.m_Path = nextPosObj.GetComponent<CinemachineDollyCart>().m_Path;
             myCart.m_Position = nextPosObj.GetComponent<CinemachineDollyCart>().m_Position;
             myCart.enabled = true;
-            rotObj.transform.rotation = Quaternion.Euler(new Vector3(-90.0f, 0.0f, 0.0f));
+            playerModel.transform.rotation = Quaternion.Euler(new Vector3(-90.0f, 0.0f, 0.0f));
         }
     }
 
@@ -136,7 +138,7 @@ public class PlayerMoveLRState : PlayerState
                 float changePos = changePosMax * nowPosPer + data.changePosMin;
 
                 float speed = this.GetComponent<CinemachineDollyCart>().m_Speed;
-                changePos += this.playerStatus.moveTime * speed;
+                changePos += this.playerStatus.moveTime * speed + 0.7f;
 
 
                 // 移動を開始

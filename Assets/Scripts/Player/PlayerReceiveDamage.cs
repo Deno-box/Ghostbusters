@@ -14,12 +14,12 @@ public class PlayerReceiveDamage : MonoBehaviour
     }
 
     // 敵に衝突したらスコアを減らす
-    void OnTriggerEnter(Collider other)
+    void OnTriggerEnter(Collider _other)
     {
-        if (other.tag == "EnemyBullet")
+        if (_other.tag == "EnemyBullet")
         {
             GameDataManager.AddDecisionNum((int)GameDataManager.SCORE_TYPE.MISS);
-            this.GetComponentInParent<PlayerIdleState>().StateOnTrigger(other);
+            this.GetComponentInParent<PlayerIdleState>().ReceiveDamage();
         }
     }
 }

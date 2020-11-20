@@ -20,7 +20,4 @@ public abstract class PlayerState : MonoBehaviour
 
     // 終了処理
     public abstract void Exit();
-
-    // OnTrigger処理
-    public abstract void StateOnTrigger(Collider _other);
 }

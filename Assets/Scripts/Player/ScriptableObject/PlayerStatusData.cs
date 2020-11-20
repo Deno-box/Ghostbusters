@@ -15,4 +15,7 @@ public class PlayerStatusData : ScriptableObject
     public float greatJudgeDistance;
     // ダメージを受けた時の無敵時間
     public float damageInvincibleTime;
+    // 落下判定を取るパスの長さの割合
+    [Range(0.0f,1.0f)]
+    public float fallJudgeRate;
 }

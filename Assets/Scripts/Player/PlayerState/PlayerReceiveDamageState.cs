@@ -11,7 +11,9 @@ public class PlayerReceiveDamageState : PlayerState
     private float damageTimer;
     // 点滅時間
     private float brinkInterval = 0.15f;
-
+    // 点滅状態か
+    private bool isBlink = false;
+    
 
     private GameObject playerModel;
 
@@ -26,6 +28,7 @@ public class PlayerReceiveDamageState : PlayerState
     {
         this.state = PlayerStateController.PlayerStateEnum.ReceiveDamage;
         damageTimer = 0.0f;
+        this.isBlink = true;
 
         StartCoroutine("BlinkRenderer");
     }
@@ -34,32 +37,43 @@ public class PlayerReceiveDamageState : PlayerState
     public override void Execute()
     {
         this.damageTimer += Time.deltaTime;
-        //if (this.damageTimer >= playerStatus.damageInvincibleTime)
-        //    this.state = PlayerStateController.PlayerStateEnum.Idle;
+        if (this.damageTimer >= playerStatus.damageInvincibleTime)
+            this.state = PlayerStateController.PlayerStateEnum.Idle;
+
+        // スペースキーでパリィ状態に遷移
+        if (Input.GetKeyDown(KeyCode.Space))
+            this.state = PlayerStateController.PlayerStateEnum.Parry;
+        // Aキーで左のパスに移動
+        else
+        if (Input.GetKeyDown(KeyCode.LeftArrow))
+        {
+            // 左入力キーを設定
+            this.GetComponent<PlayerMoveLRState>().moveDir = PlayerMoveData.MoveDir.Left;
+            this.state = PlayerStateController.PlayerStateEnum.MoveLR;
+        }
+        // Dキーで左のパスに移動
+        else
+        if (Input.GetKeyDown(KeyCode.RightArrow))
+        {
+            // 右入力キーを設定
+            this.GetComponent<PlayerMoveLRState>().moveDir = PlayerMoveData.MoveDir.Right;
+            this.state = PlayerStateController.PlayerStateEnum.MoveLR;
+        }
     }
 
     // 終了処理
     public override void Exit()
     {
         playerModel.SetActive(true);
-    }
-    // OnTrigger処理
-    public override void StateOnTrigger(Collider _other)
-    {
-
+        this.isBlink = false;
     }
 
     // TODO :: 演出用の処理で状態変更を行っているので変更する
     IEnumerator BlinkRenderer()
     {
-        while (true)
+        while (this.isBlink)
         {
-            playerModel.active = !playerModel.active;
-            if (this.damageTimer >= playerStatus.damageInvincibleTime)
-            {
-                this.state = PlayerStateController.PlayerStateEnum.Idle;
-                break;
-            }
+            playerModel.SetActive(!playerModel.activeSelf);
             yield return new WaitForSeconds(this.brinkInterval);
         }
     }

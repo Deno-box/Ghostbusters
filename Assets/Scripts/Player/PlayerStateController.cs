@@ -30,10 +30,12 @@ public class PlayerStateController : MonoBehaviour
         this.gameObject.AddComponent<PlayerMoveLRState>();
         this.gameObject.AddComponent<PlayerParryState>();
         this.gameObject.AddComponent<PlayerReceiveDamageState>();
+        this.gameObject.AddComponent<PlayerFallState>();
         stateList[(int)PlayerStateEnum.Idle]    = this.GetComponent<PlayerIdleState>();
         stateList[(int)PlayerStateEnum.MoveLR]  = this.GetComponent<PlayerMoveLRState>();
         stateList[(int)PlayerStateEnum.Parry]   = this.GetComponent<PlayerParryState>();
         stateList[(int)PlayerStateEnum.ReceiveDamage]   = this.GetComponent<PlayerReceiveDamageState>();
+        stateList[(int)PlayerStateEnum.Fall]   = this.GetComponent<PlayerFallState>();
 
         // アクティブステートをアイドル状態に初期化
         activeState = stateList[(int)PlayerStateEnum.Idle];
@@ -55,10 +57,5 @@ public class PlayerStateController : MonoBehaviour
             lastActiveStateEum = activeState.State;
         }
 
-    }
-
-    private void OnTriggerEnter(Collider _other)
-    {
-        activeState.StateOnTrigger(_other);
     }
 }

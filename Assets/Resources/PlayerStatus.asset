@@ -17,3 +17,4 @@ MonoBehaviour:
   goodJudgeDistance: 0.3
   greatJudgeDistance: 0
   damageInvincibleTime: 0.7
+  fallJudgeRate: 0.99

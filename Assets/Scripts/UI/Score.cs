@@ -7,7 +7,7 @@ public class Score : MonoBehaviour
 {
     // スコア用テキスト
     [SerializeField]
-    Text scoreText;
+    Text scoreText = null;
 
     // スコア
     private int score = 0;

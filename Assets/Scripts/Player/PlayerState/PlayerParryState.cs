@@ -82,11 +82,6 @@ public class PlayerParryState : PlayerState
         obj.transform.localRotation = Quaternion.Euler(-90.0f, 0.0f, 0.0f);
     }
 
-    // OnTrigger処理
-    public override void StateOnTrigger(Collider _other)
-    {
-        this.state = PlayerStateController.PlayerStateEnum.Idle;
-    }
 
     // パリィを発生させるコルーチン
     private IEnumerator ParryCoroutine()

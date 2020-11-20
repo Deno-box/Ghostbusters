@@ -97,12 +97,6 @@ public class PlayerMoveLRState : PlayerState
         }
     }
 
-    // OnTrigger処理
-    public override void StateOnTrigger(Collider _other)
-    {
-
-    }
-
 
     // 移動するパスを変更
     public void ChangeMovePath(CinemachinePathBase _path, float _position = 0.0f)
@@ -138,7 +132,8 @@ public class PlayerMoveLRState : PlayerState
                 float changePos = changePosMax * nowPosPer + data.changePosMin;
 
                 float speed = this.GetComponent<CinemachineDollyCart>().m_Speed;
-                changePos += this.playerStatus.moveTime * speed + 0.7f;
+                // TODO : 誤差をマジックナンバーで修正している
+                changePos += this.playerStatus.moveTime * speed + 0.9f;
 
 
                 // 移動を開始

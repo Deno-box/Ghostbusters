@@ -10,6 +10,7 @@ public class TestTitleSceneController : MonoBehaviour
     void Start()
     {
         this.fadeController = GameObject.Find("FadeCanvas").GetComponent<Fadecontroller>();
+        Cursor.visible = false;
     }
 
     // Update is called once per frame

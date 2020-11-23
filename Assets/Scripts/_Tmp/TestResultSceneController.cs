@@ -19,7 +19,7 @@ public class TestResultSceneController : MonoBehaviour
     void Update()
     {
         // スペースキーを押すとタイトルに遷移する
-        if(Input.GetKeyDown(KeyCode.Space))
-            this.fadeController.fadeOutStart(0, 0, 0, 0, "TitleScene");
+        //if(Input.GetKeyDown(KeyCode.Space))
+            //this.fadeController.fadeOutStart(0, 0, 0, 0, "TitleScene");
     }
 }

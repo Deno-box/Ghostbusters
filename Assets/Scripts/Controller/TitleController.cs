@@ -102,8 +102,8 @@ public class TitleController : MonoBehaviour
                 // ゲームスタート
                 case (int)TextType.NEW_GAME:
                     // プレイシーンへ遷移
-                    fadeController.fadeOutStart(0, 0, 0, 0, "DemoPlayScene");
-                    break;
+                    //fadeController.fadeOutStart(0, 0, 0, 0, "DemoPlayScene");
+                    //break;
                 // 続きから
                 case (int)TextType.CONTINUE:
                     break;

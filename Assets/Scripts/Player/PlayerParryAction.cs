@@ -51,31 +51,43 @@ public class PlayerParryAction : MonoBehaviour
     // マウスクリックでパリィを行う
     private void Parry()
     {
-        StartCoroutine("ParryCoroutine");
+        //StartCoroutine("ParryCoroutine");
+
+        // パリィ判定用オブジェクトをアクティブ化
+        this.parryObj.SetActive(true);
+        // 判定用タイマーをリセット
+        this.parryJudgeTime = 0.0f;
+        // パリィアクティブ状態に移行
+        this.isParryActive = true;
+
+        // 生成してから一定時間経過していたら非アクティブ化
+        parryObj.SetActive(false);
+        // パリィアクティブ状態を解除
+        isParryActive = false;
     }
 
     // パリィを発生させるコルーチン
-    private IEnumerator ParryCoroutine()
-    {
-        // パリィ判定用オブジェクトをアクティブにする
-        parryObj.SetActive(true);
-        // 判定用のタイマーをリセット
-        parryJudgeTime = 0.0f;
-        // パリィアクティブ状態に移行
-        isParryActive = true;
+    //private IEnumerator ParryCoroutine()
+    //{
+    //    // パリィ判定用オブジェクトをアクティブにする
+    //    parryObj.SetActive(true);
+    //    // 判定用のタイマーをリセット
+    //    parryJudgeTime = 0.0f;
+    //    // パリィアクティブ状態に移行
+    //    isParryActive = true;
 
-        // parryActimeTimeの間処理を停止する
-        yield return new WaitForSeconds(parryActiveTime);
+    //    // parryActimeTimeの間処理を停止する
+    //    yield return new WaitForSeconds(parryActiveTime);
 
-        // 生成してから一定時間経過していたら非アクティブにする
-        if (parryActiveTime <= parryJudgeTime)
-        {
-            // 一定時間経過後パリィ判定用オブジェクトを非アクティブにする
-            parryObj.SetActive(false);
-            // パリィアクティブ状態を解除
-            isParryActive = false;
-        }
-    }
+    //    // 生成してから一定時間経過していたら非アクティブにする
+    //    if (parryActiveTime <= parryJudgeTime)
+    //    {
+    //        // 一定時間経過後パリィ判定用オブジェクトを非アクティブにする
+    //        parryObj.SetActive(false);
+    //        // パリィアクティブ状態を解除
+    //        isParryActive = false;
+    //    }
+    //}
 
     // パリィ判定用オブジェクトに衝突したら
     public void ParryJudgeCollision()

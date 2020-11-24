@@ -13,8 +13,6 @@ public class PlayerParryState : PlayerState
 
     // パリィを発生させてから実際に敵が当たるまでの時間
     private float parryJudgeTime = 0.0f;
-    // パリィを行ているか
-    private bool isParryActive = false;
     // パリィ成功時のエフェクト
     private GameObject parrysuccessFx;
 
@@ -24,6 +22,9 @@ public class PlayerParryState : PlayerState
     private int rotDir = 1;
 
     private GameObject playerModel=null;
+
+    // パリィ先行フラグ
+    private bool isInputParryButton = false;
 
     private void Awake()
     {
@@ -44,7 +45,6 @@ public class PlayerParryState : PlayerState
     {
         parryObj.SetActive(false);
 
-        isParryActive = false;
         parryJudgeTime = 0.0f;
         this.state = PlayerStateController.PlayerStateEnum.Parry;
 
@@ -55,6 +55,13 @@ public class PlayerParryState : PlayerState
             this.rotDir = 1;
 
         aniamtionTimer = 0.0f;
+
+        // パリィ判定用オブジェクトをアクティブにする
+        parryObj.SetActive(true);
+        // 判定用のタイマーをリセット
+        parryJudgeTime = 0.0f;
+
+        isInputParryButton = false;
     }
 
     // 実行処理
@@ -63,11 +70,15 @@ public class PlayerParryState : PlayerState
         //Debug.Log("Parry");
 
         // パリィを発生していなかったら発生させる
-        if (isParryActive == false)
-            StartCoroutine("ParryCoroutine");
+            ParryAction();
+
+       if(Input.GetKeyDown(KeyCode.Space))
+        {
+            isInputParryButton = true;
+            Debug.Log("Space");
+        }
 
         // パリィを行っていたら判定用タイマーを増加
-        if (isParryActive)
             parryJudgeTime += Time.deltaTime;
 
         PlayerRotation();
@@ -84,21 +95,24 @@ public class PlayerParryState : PlayerState
 
 
     // パリィを発生させるコルーチン
-    private IEnumerator ParryCoroutine()
+    private void ParryAction()
     {
-        // パリィ判定用オブジェクトをアクティブにする
-        parryObj.SetActive(true);
-        // 判定用のタイマーをリセット
-        parryJudgeTime = 0.0f;
-        // パリィアクティブ状態に移行
-        isParryActive = true;
-
-        // parryActimeTimeの間処理を停止する
-        yield return new WaitForSeconds(this.playerStatus.parryActiveTime);
+        //// parryActimeTimeの間処理を停止する
+        //yield return new WaitForSeconds(this.playerStatus.parryActiveTime);
 
         // 生成してから一定時間経過していたらアイドル状態に遷移
         if (this.playerStatus.parryActiveTime <= parryJudgeTime)
-            this.state = PlayerStateController.PlayerStateEnum.Idle;
+        {
+            // 先行入力が行われていたらパリィ状態に遷移
+            if (this.isInputParryButton)
+            {
+                this.state = PlayerStateController.PlayerStateEnum.Parry;
+                Debug.Log("Next Parry");
+            }
+            else
+                this.state = PlayerStateController.PlayerStateEnum.Idle;
+            Debug.Log("Next Idle");
+        }
     }
 
     // パリィ判定用オブジェクトに衝突したら

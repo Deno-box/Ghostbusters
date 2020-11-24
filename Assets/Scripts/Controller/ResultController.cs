@@ -16,9 +16,9 @@ public class ResultController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Space))
-        {
-            fadecontroller.fadeOutStart(0, 0, 0, 0, "TitleScene");
-        }
+        //if(Input.GetKeyDown(KeyCode.Space))
+        //{
+        //    fadecontroller.fadeOutStart(0, 0, 0, 0, "TitleScene");
+        //}
     }
 }

@@ -16,8 +16,10 @@ public class Uiscript : MonoBehaviour
 
     //スコア
     private int[] scorePoint = new int[(int)GameDataManager.SCORE_TYPE.ALL_TYPE];
+
     //判定の数
     private int[] decisionNum = new int[(int)GameDataManager.SCORE_TYPE.ALL_TYPE];
+
     //トータルスコア
     private int totalScore = 0;
 
@@ -27,8 +29,8 @@ public class Uiscript : MonoBehaviour
         // スコア、判定数初期化
         for (int i = 0; i < (int)GameDataManager.SCORE_TYPE.ALL_TYPE; i++)
         {
-            scorePoint[i] = GameDataManager.GetScore(i);
-            decisionNum[i] = GameDataManager.GetDecisionNum(i);
+            this.scorePoint[i] = GameDataManager.GetScore(i);
+            this.decisionNum[i] = GameDataManager.GetDecisionNum(i);
         }
     }
 
@@ -36,29 +38,25 @@ public class Uiscript : MonoBehaviour
     void Update()
     {
         // スコア計算
-        CalcScore();
+        this.CalcScore();
 
-
-        //各スコアの表示
-        //greatText.text = "Great x" + decisionNum[0].ToString();
-        //goodText.text = "Good x" + decisionNum[1].ToString();
-        //missText.text = "Miss x" + decisionNum[2].ToString();
-        //totalText.text = "TotalScore" + totalScore.ToString();
-
+        // 各スコアの表示
+        this.DrawText();
     }
 
     // スコア計算
     private void CalcScore()
     {
+        int temp = 0;
         for (int i = 0; i < (int)GameDataManager.SCORE_TYPE.ALL_TYPE; i++)
         {
             // スコアの計算
-            this.totalScore += scorePoint[i] * decisionNum[i];
+            temp += this.scorePoint[i] * this.decisionNum[i];
 
             // スコアがマイナスにならないように
-            if (totalScore < 0)
+            if (this.totalScore < 0)
             {
-                totalScore = 0;
+                this.totalScore = 0;
             }
         }
     }
@@ -71,11 +69,5 @@ public class Uiscript : MonoBehaviour
             this.decisionCountTexts[i].text = this.decisionNum[i].ToString() + "回";
         }
         this.scoreCountText.text = this.totalScore.ToString() + "pt";
-    }
-
-    // カウントアップ
-    private void CountUp()
-    {
-
     }
 }

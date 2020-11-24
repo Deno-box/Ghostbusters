@@ -326,7 +326,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 165.79999, y: -30}
-  m_SizeDelta: {x: 160, y: 30}
+  m_SizeDelta: {x: 200, y: 35}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &599613794
 MonoBehaviour:
@@ -349,10 +349,10 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 24
+    m_FontSize: 30
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 2
+    m_MinSize: 0
     m_MaxSize: 40
     m_Alignment: 0
     m_AlignByGeometry: 0
@@ -578,10 +578,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   decisionCountTexts:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  scoreCountText: {fileID: 0}
+  - {fileID: 795510179}
+  - {fileID: 761452570}
+  - {fileID: 1201722008}
+  scoreCountText: {fileID: 599613794}
 --- !u!1 &919018121
 GameObject:
   m_ObjectHideFlags: 0

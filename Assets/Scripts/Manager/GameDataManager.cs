@@ -23,7 +23,7 @@ public class GameDataManager : MonoBehaviour
     // スコア値格納用
     //[NamedArrayAttribute(new string[] { "Great Score", "Good Score", "Miss Score" })]
     [SerializeField]
-    int[] scorePoint = new int[(int)SCORE_TYPE.ALL_TYPE];
+    private int[] scorePoint = new int[(int)SCORE_TYPE.ALL_TYPE];
 
     // スコア値保存用
     private static int[] score = new int[(int)SCORE_TYPE.ALL_TYPE];

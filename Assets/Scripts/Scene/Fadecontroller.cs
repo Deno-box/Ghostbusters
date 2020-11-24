@@ -18,7 +18,7 @@ public class Fadecontroller : MonoBehaviour
 
     //画面をフェードさせるための画像をパブリックで取得
     [SerializeField]
-    private Image fadeImage;
+    private Image fadeImage = null;
 
     //シーン遷移のための型
     private int afterScene;

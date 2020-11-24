@@ -352,8 +352,6 @@ GameObject:
   m_Component:
   - component: {fileID: 5084778333711348281}
   - component: {fileID: 5084778333711348286}
-  - component: {fileID: 6586777440717259977}
-  - component: {fileID: 2528681985857771477}
   - component: {fileID: 1351889914415302003}
   m_Layer: 8
   m_Name: Player
@@ -397,36 +395,6 @@ MonoBehaviour:
   m_PositionUnits: 1
   m_Speed: 50
   m_Position: 0
---- !u!114 &6586777440717259977
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5084778333711348280}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8f4f4f47f146b78439db9e85799ed30c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerMoveDatas: []
---- !u!114 &2528681985857771477
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5084778333711348280}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 83f1aea173428f348b640ce67f8d927c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  parryActiveTime: 0.7
-  fastJudgeTime: 0.7
-  greatJudgeTime: 0
-  goodJudgeTime: 0.2
-  parryObj: {fileID: 0}
 --- !u!114 &1351889914415302003
 MonoBehaviour:
   m_ObjectHideFlags: 0

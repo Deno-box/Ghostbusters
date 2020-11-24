@@ -15,10 +15,11 @@ public class Fadecontroller : MonoBehaviour
     //透明度が変わるスピード
     [SerializeField]
     private float fadeSpeed = 0.75f;
-    
+
     //画面をフェードさせるための画像をパブリックで取得
-    public Image fadeImage;
-    
+    [SerializeField]
+    private Image fadeImage;
+
     //シーン遷移のための型
     private int afterScene;
 
@@ -30,22 +31,22 @@ public class Fadecontroller : MonoBehaviour
     void Start()
     {
         DontDestroyOnLoad(this);
-        SetColor();
-    
+        this.SetColor();
+
         //シーン遷移が完了した際にフェードインを開始するように設定
         SceneManager.sceneLoaded += fadeInStart;
     }
-    
+
     //シーン遷移が完了した際にフェードインを開始するように設定
     void fadeInStart(Scene scene, LoadSceneMode mode)
     {
-         this.isFadeIn = true;
+        this.isFadeIn = true;
     }
 
+    // フェードアウトスタート
     public void fadeOutStart(int _nextScene)
     {
-        
-        SetColor();
+        this.SetColor();
         this.isFadeOut = true;
         this.afterScene = _nextScene;
     }
@@ -57,9 +58,9 @@ public class Fadecontroller : MonoBehaviour
         {
             //不透明度を徐々に下げる
             this.color.a -= this.fadeSpeed * Time.deltaTime;
-    
+
             //変更した透明度を画像に反映させる関数を呼ぶ
-            SetColor();
+            this.SetColor();
             if (this.color.a <= 0)
                 this.isFadeIn = false;
         }
@@ -68,12 +69,12 @@ public class Fadecontroller : MonoBehaviour
         {
             //不透明度を徐々に上げる
             this.color.a += this.fadeSpeed * Time.deltaTime;
-        
+
             //変更した透明度を画像に反映させる関数を呼ぶ
-            SetColor();
+            this.SetColor();
             if (this.color.a >= 1)
             {
-               this.isFadeOut = false;
+                this.isFadeOut = false;
                 SceneManager.LoadScene(this.afterScene);
             }
         }
@@ -81,11 +82,6 @@ public class Fadecontroller : MonoBehaviour
     //画像に色を代入する関数
     void SetColor()
     {
-       this.fadeImage.color =this.color;
-    }
-
-    private void setAlpha(float _alpha)
-    {
-        this.color.a = _alpha;
+        this.fadeImage.color = this.color;
     }
 }
